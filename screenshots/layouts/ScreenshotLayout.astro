@@ -14,8 +14,6 @@ import libs from '@tabler/core/libs.json'
 
 interface Props {
   title: string
-  /** dir="rtl" + the .rtl.css variant of tabler.css */
-  rtl?: boolean
   /** the Tabler logo above the card (+ balancing spacer below it) */
   showLogo?: boolean
   /** caps the [data-screenshot-target] width at columns * 320px */
@@ -30,9 +28,8 @@ interface Props {
   class?: string
 }
 
-const { title, rtl = false, showLogo = true, columns, zoom = 1, pageLibs = [], cssPlugins = [], class: className } = Astro.props
+const { title, showLogo = true, columns, zoom = 1, pageLibs = [], cssPlugins = [], class: className } = Astro.props
 const targetStyle = [columns && `max-width: ${columns * 310}px`, `zoom: ${zoom}`].filter(Boolean).join('; ')
-const rtlSuffix = rtl ? '.rtl' : ''
 // core/dist only has .min. files after a full `pnpm build`; `astro dev` (this
 // package's own dev-prepare-less dev script) runs against whatever core's own
 // dev watcher last emitted, which is unminified — so match the served core
@@ -47,7 +44,7 @@ const libJsFiles = pageLibEntries.flatMap(([, lib]) => (lib.js ?? []).map((file)
 ---
 
 <!doctype html>
-<html lang="en" dir={rtl ? 'rtl' : undefined}>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -56,9 +53,9 @@ const libJsFiles = pageLibEntries.flatMap(([, lib]) => (lib.js ?? []).map((file)
 
     <link rel="icon" href="./favicon-dev.ico" type="image/x-icon" />
 
-    <link href={`./dist/css/tabler${rtlSuffix}${min}.css`} rel="stylesheet" />
+    <link href={`./dist/css/tabler${min}.css`} rel="stylesheet" />
 
-    {cssPlugins.map((plugin) => <link href={`./dist/css/tabler-${plugin}${rtlSuffix}${min}.css`} rel="stylesheet" />)}
+    {cssPlugins.map((plugin) => <link href={`./dist/css/tabler-${plugin}${min}.css`} rel="stylesheet" />)}
 
     {libCssFiles.map((href) => <link href={href} rel="stylesheet" />)}
 

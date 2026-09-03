@@ -82,6 +82,12 @@ const {
 // used by any docs page.
 const basePlugins = ['themes', 'vendors'];
 const pagePlugins = [...basePlugins, ...cssPlugins.filter((plugin) => !basePlugins.includes(plugin))];
+// Dev serves the unminified core assets the watchers write (`css-build` /
+// `js-build` with maps); production serves the minified published payload
+// (core `css --min-only`, `TABLER_SOURCEMAP=false`).
+const isDev = import.meta.env.DEV
+const cssSuffix = isDev ? '.css' : '.min.css'
+const jsSuffix = isDev ? '.js' : '.min.js'
 const environment = process.env.NODE_ENV || 'production';
 // Vercel preview/branch deployments must not be indexed (VERCEL_ENV is unset locally).
 const isVercelPreview = !!process.env.VERCEL_ENV && process.env.VERCEL_ENV !== 'production';
@@ -131,7 +137,9 @@ const libEntries = Object.entries(libs as Record<string, Lib>);
 const libUrl = (lib: Lib, file: string) =>
 	isExternal(file)
 		? file
-		: `/dist/libs/${lib.npm}/${file}`;
+		: lib.npm
+			? `/dist/libs/${lib.npm}/${file}`
+			: file;
 const docsLibCss = libEntries
 	.filter(([name]) => docsLibs.includes(name))
 	.flatMap(([, lib]) => (lib.css ?? []).map((file) => libUrl(lib, file)));
@@ -271,7 +279,7 @@ const relatedPages = await Promise.all(
 		<!-- END META -->
 
 		<!-- BEGIN GLOBAL MANDATORY STYLES -->
-		<link rel="stylesheet" href="/dist/css/tabler.css" />
+		<link rel="stylesheet" href={`/dist/css/tabler${cssSuffix}`} />
 		<!-- END GLOBAL MANDATORY STYLES -->
 
 		{
@@ -285,7 +293,7 @@ const relatedPages = await Promise.all(
 		}
 
 		<!-- BEGIN PLUGINS STYLES -->
-		{pagePlugins.map((plugin) => <link href={`/dist/css/tabler-${plugin}.css`} rel="stylesheet" />)}
+		{pagePlugins.map((plugin) => <link href={`/dist/css/tabler-${plugin}${cssSuffix}`} rel="stylesheet" />)}
 		<!-- END PLUGINS STYLES -->
 
 		<!-- BEGIN CUSTOM FONT -->
@@ -309,7 +317,7 @@ const relatedPages = await Promise.all(
 			)
 		}
 		<!-- BEGIN GLOBAL THEME SCRIPT -->
-		<script is:inline src="/dist/js/tabler-theme.js"></script>
+		<script is:inline src={`/dist/js/tabler-theme${jsSuffix}`}></script>
 		<script is:inline>
 			// The stored *choice* (light/dark/auto) drives the footer theme switcher's
 			// active segment; tabler-theme.js above only exposes the resolved theme.
@@ -536,7 +544,7 @@ const relatedPages = await Promise.all(
 		<!-- END PAGE SCRIPTS -->
 
 		<!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
-		<script is:inline src="/dist/js/tabler.js" defer></script>
+		<script is:inline src={`/dist/js/tabler${jsSuffix}`} defer></script>
 		<!-- END GLOBAL MANDATORY SCRIPTS -->
 
 		<PageScripts />

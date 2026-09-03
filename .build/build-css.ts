@@ -1,10 +1,10 @@
 // Single-pass CSS pipeline shared by @tabler/core and @tabler/preview.
 //
-// Runs sass, autoprefixer, the --tblr- prefix, rtlcss and clean-css in one
+// Runs sass, autoprefixer, the --tblr- prefix and clean-css in one
 // process; each output file is written exactly once, fully processed. The
 // options mirror the CLI invocations this replaced:
 // - sass --no-source-map --load-path=node_modules --style expanded
-// - postcss (autoprefixer cascade:false, rtlcss for --rtl, external map with
+// - postcss (autoprefixer cascade:false, external map with
 //   annotation + sourcesContent)
 // - cleancss -O1 --format breakWith=lf --with-rebase --source-map
 //   --source-map-inline-sources --batch --batch-suffix ".min"
@@ -13,31 +13,42 @@
 // --banner adds the license comment before any source map is generated, so
 // the maps account for its lines (#2766).
 //
-// Usage: tsx ../.build/build-css.ts <scssDir> <outDir> [--rtl] [--minify] [--banner]
+// Usage: tsx ../.build/build-css.ts <scssDir> <outDir> [--minify] [--banner] [--no-maps] [--min-only]
 // (cwd = the package)
+//
+// --no-maps skips all source map output (.css.map + .min.css.map and their
+// annotations). Used for the published core/dist payload; dev servers keep
+// the default maps behavior.
+//
+// --min-only (requires --minify) writes just the .min.css files, skipping the
+// non-minified intermediates. Used for the published core/dist payload.
 /// <reference path="./modules.d.ts" />
-import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
+import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { EOL } from 'node:os'
 import { basename, join, resolve } from 'node:path'
 import { compile as compileSass } from 'sass'
 import postcss, { type Result } from 'postcss'
 import autoprefixer from 'autoprefixer'
 import prefixCustomProperties from 'postcss-prefix-custom-properties'
-import rtlcss from 'rtlcss'
 import CleanCSS from 'clean-css'
 import { addBanner } from '../shared/banner/index.mjs'
-import { cssVarIgnore, cssVarPrefix, inlineValueComments } from './css-var-prefix'
+import { cssVarIgnore, cssVarPrefix } from './css-var-prefix'
 
 const args = process.argv.slice(2)
 const flags = args.filter((arg) => arg.startsWith('--'))
 const [scssDir, outDir] = args.filter((arg) => !arg.startsWith('--'))
 if (!scssDir || !outDir) {
-  console.error('usage: tsx build-css.ts <scssDir> <outDir> [--rtl] [--minify] [--banner]')
+  console.error('usage: tsx build-css.ts <scssDir> <outDir> [--minify] [--banner] [--no-maps] [--min-only]')
   process.exit(1)
 }
-const withRtl = flags.includes('--rtl')
 const withMinify = flags.includes('--minify')
 const withBanner = flags.includes('--banner')
+const withMaps = !flags.includes('--no-maps')
+const minOnly = flags.includes('--min-only')
+if (minOnly && !withMinify) {
+  console.error('build-css: --min-only requires --minify')
+  process.exit(1)
+}
 
 const mapOptions = { inline: false, annotation: true, sourcesContent: true }
 
@@ -60,38 +71,22 @@ async function compile(entry: string): Promise<{ outFile: string; result: Result
   // lands after a blank line, exactly like `postcss --replace` produced).
   const css = `${compiled.css}\n`
   // Banner goes in before postcss runs, so the map it generates already counts
-  // the banner's lines — and so does the rtl map chained onto it below.
+  // the banner's lines.
   const input = withBanner ? addBanner(css, outFile) : css
   // Prefixing is its own pass, ahead of the one that generates the map:
   // postcss maps generated positions back to *its own input*, so renaming
   // inside the map-generating pass would leave every mapping — and the
   // embedded sourcesContent — describing css that no longer exists on disk.
-  const { css: prefixed } = await postcss([inlineValueComments, prefixCustomProperties({ prefix: cssVarPrefix, ignore: cssVarIgnore })]).process(input, { from: outFile, to: outFile, map: false })
+  const { css: prefixed } = await postcss([prefixCustomProperties({ prefix: cssVarPrefix, ignore: cssVarIgnore })]).process(input, { from: outFile, to: outFile, map: false })
   const result = await postcss([autoprefixer({ cascade: false })]).process(prefixed, {
     from: outFile,
     to: outFile,
-    map: mapOptions,
+    map: withMaps ? mapOptions : false,
   })
   queueWrite(outFile, result.css)
-  if (result.map) queueWrite(`${outFile}.map`, result.map.toString())
+  if (withMaps && result.map) queueWrite(`${outFile}.map`, result.map.toString())
   written.push(outFile)
   return { outFile, result }
-}
-
-// rtlcss over the prefixed output: outDir/x.css → outDir/x.rtl.css (+ .map)
-async function rtl(entry: string, outFile: string, base: Result): Promise<void> {
-  const rtlFile = join(outDir, `${basename(entry, '.scss')}.rtl.css`)
-  // Same input the CLI read from disk: the prefixed css including its
-  // sourceMappingURL annotation, so postcss picks up the previous map.
-  // The previous map is not on disk yet (writes are buffered) — pass it in.
-  const result = await postcss([autoprefixer({ cascade: false }), rtlcss()]).process(base.css, {
-    from: outFile,
-    to: rtlFile,
-    map: { ...mapOptions, prev: base.map.toString() },
-  })
-  queueWrite(rtlFile, result.css)
-  if (result.map) queueWrite(`${rtlFile}.map`, result.map.toString())
-  written.push(rtlFile)
 }
 
 // All compile work is done before the first write: compiles take seconds while
@@ -129,8 +124,8 @@ async function minify(files: string[]): Promise<void> {
     rebase: true,
     rebaseTo: resolve(outDir),
     returnPromise: true,
-    sourceMap: true,
-    sourceMapInlineSources: true,
+    sourceMap: withMaps,
+    sourceMapInlineSources: withMaps,
   }).minify(files)
   for (const inputFile of files) {
     const fileResult = minified[inputFile]
@@ -138,8 +133,9 @@ async function minify(files: string[]): Promise<void> {
     if (fileResult.errors.length > 0) throw new Error(fileResult.errors.join('\n'))
     for (const warning of fileResult.warnings) console.warn(`build-css: ${warning}`)
     const minFile = inputFile.replace(/\.css$/, '.min.css')
-    writeFileSync(minFile, `${fileResult.styles}${EOL}/*# sourceMappingURL=${basename(minFile)}.map */`)
-    writeFileSync(`${minFile}.map`, fileResult.sourceMap.toString())
+    const minContent = withMaps ? `${fileResult.styles}${EOL}/*# sourceMappingURL=${basename(minFile)}.map */` : `${fileResult.styles}${EOL}`
+    writeFileSync(minFile, minContent)
+    if (withMaps) writeFileSync(`${minFile}.map`, fileResult.sourceMap.toString())
     console.log(`build-css: ${minFile}`)
   }
 }
@@ -151,11 +147,18 @@ async function main() {
   mkdirSync(outDir, { recursive: true })
 
   for (const entry of entries) {
-    const { outFile, result } = await compile(entry)
-    if (withRtl) await rtl(entry, outFile, result)
+    await compile(entry)
   }
   flushWrites()
   if (withMinify) await minify(written)
+  if (minOnly) {
+    // Publish minified files only: drop the non-minified intermediates (and
+    // any of their maps) written above.
+    for (const file of written) {
+      rmSync(file, { force: true })
+      rmSync(`${file}.map`, { force: true })
+    }
+  }
 }
 
 main().catch((error) => {

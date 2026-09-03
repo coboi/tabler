@@ -272,8 +272,8 @@ Mentions
 }
 
 $text-variants: (
-  incorrect: var(--red),
-  correct: var(--green),
+  incorrect: var(--danger),
+  correct: var(--success),
 );
 
 @each $variant, $color in $text-variants {

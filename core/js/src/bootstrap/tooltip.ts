@@ -9,7 +9,7 @@ import * as Popper from '@popperjs/core'
 import BaseComponent from './base-component'
 import EventHandler from './dom/event-handler'
 import Manipulator from './dom/manipulator'
-import { execute, findShadowRoot, getElement, getUID, isRTL, noop } from './util/index'
+import { execute, findShadowRoot, getElement, getUID, noop } from './util/index'
 import { DefaultAllowlist } from './util/sanitizer'
 import TemplateFactory from './util/template-factory'
 
@@ -56,9 +56,9 @@ interface ComponentConfigType {
 const AttachmentMap: Record<string, string> = {
   AUTO: 'auto',
   TOP: 'top',
-  RIGHT: isRTL() ? 'left' : 'right',
+  RIGHT: 'right',
   BOTTOM: 'bottom',
-  LEFT: isRTL() ? 'right' : 'left',
+  LEFT: 'left',
 }
 
 const Default: ComponentConfig = {

@@ -76,8 +76,6 @@
     }
   }
 }
-
-/* rtl:begin:ignore */
 .bs-popover-end {
   > .popover-arrow {
     left: calc(-1 * (var(--popover-arrow-height)) - var(--popover-border-width)); // stylelint-disable-line function-disallowed-list
@@ -100,8 +98,6 @@
     }
   }
 }
-
-/* rtl:end:ignore */
 
 .bs-popover-bottom {
   > .popover-arrow {
@@ -135,8 +131,6 @@
     border-bottom: var(--popover-border-width) solid var(--popover-header-bg);
   }
 }
-
-/* rtl:begin:ignore */
 .bs-popover-start {
   > .popover-arrow {
     right: calc(-1 * (var(--popover-arrow-height)) - var(--popover-border-width)); // stylelint-disable-line function-disallowed-list
@@ -159,8 +153,6 @@
     }
   }
 }
-
-/* rtl:end:ignore */
 
 .bs-popover-auto {
   &[data-popper-placement^='top'] {

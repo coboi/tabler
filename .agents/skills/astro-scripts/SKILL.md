@@ -69,7 +69,7 @@ const selector = `#wysiwyg-${id}`
 
 Two known snags:
 
-- **Astro wraps a `define:vars` script in an IIFE.** Anything the markup calls (`onclick="setPageListItems(this)"`) must be assigned to `window` explicitly — see `shared/components/demo/AdvancedTable.astro`. If several instances define the same global, make it stateless and resolve the instance from the clicked element.
+- **Astro wraps a `define:vars` script in an IIFE.** Anything the markup calls must be assigned to `window` explicitly — see `shared/ui/Signature.astro`. If several instances define the same global, make it stateless and resolve the instance from the clicked element.
 - The type checker does not see `define:vars` bindings used inside template literals. `shared/components/marketing/hero/Side.astro` carries a `// @ts-nocheck` for exactly that; copy the comment with its explanation rather than restructuring the script.
 
 ## 5. When the script has to be a string
@@ -85,7 +85,7 @@ window.tabler_rating ??= {}
 window.tabler_rating[ratingKey] = new StarRating(ratingSelector, { … })
 ```
 
-`window.tabler_list`, `window.tabler_rating`, … follow the same shape. Never store an instance in a bare global.
+`window.tabler_datatable`, `window.tabler_rating`, … follow the same shape. Never store an instance in a bare global.
 
 ## 7. Loading the library
 

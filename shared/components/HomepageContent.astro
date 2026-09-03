@@ -2,7 +2,6 @@
 // shared by index.astro and layout-vertical.astro.
 import Chart from '@shared/components/demo/Chart.astro'
 import CardTitle from '@ui/CardTitle.astro'
-import MapVectorCard from './cards/MapVectorCard.astro'
 import Welcome from './cards/Welcome.astro'
 import TotalUsers from './cards/charts/TotalUsers.astro'
 import ActiveUsers2 from './cards/charts/ActiveUsers2.astro'
@@ -20,12 +19,6 @@ import Sponsor from './cards/Sponsor.astro'
 import SocialTraffic from './cards/SocialTraffic.astro'
 import Tasks from './cards/Tasks.astro'
 import Invoices from './cards/Invoices.astro'
-
-interface Props {
-  rtl?: boolean
-}
-
-const { rtl = false } = Astro.props
 ---
 
 <div class="row row-deck row-cards">
@@ -79,10 +72,6 @@ const { rtl = false } = Astro.props
   </div>
 
   <div class="col-lg-6">
-    <MapVectorCard title="Locations" />
-  </div>
-
-  <div class="col-lg-6">
     <div class="row row-cards">
       <div class="col-12">
         <StorageUsage />
@@ -106,7 +95,7 @@ const { rtl = false } = Astro.props
   </div>
 
   <div class="col-md-6 col-lg-4">
-    <Sponsor rtl={rtl} />
+    <Sponsor />
   </div>
 
   <div class="col-md-6 col-lg-4">

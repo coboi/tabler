@@ -1,34 +1,7 @@
 @use '../config' as *;
 
-@keyframes move-forever1 {
-  0% {
-    transform: translate(85px, 0%);
-  }
-
-  100% {
-    transform: translate(-90px, 0%);
-  }
-}
-
-@keyframes move-forever2 {
-  0% {
-    transform: translate(-90px, 0%);
-  }
-
-  100% {
-    transform: translate(85px, 0%);
-  }
-}
-
-@keyframes move-forever3 {
-  0% {
-    transform: translate(-90px, 0%);
-  }
-
-  100% {
-    transform: translate(85px, 0%);
-  }
-}
+// Decorative wave motion removed — Scandinavian: no perpetual decoration
+// @keyframes move-forever[123] deleted
 
 //
 // Sections
@@ -36,12 +9,12 @@
 .section {
   --section-bg: transparent;
   position: relative;
-  padding: 5rem 0;
+  padding: 2.5rem 0;
   background: var(--section-bg);
 }
 
 .section-sm {
-  padding: 4rem 0;
+  padding: 2rem 0;
 }
 
 .section-white {
@@ -64,11 +37,11 @@
 
 .section-header {
   max-width: 45rem;
-  margin: 0 auto 5rem;
+  margin: 0 auto 2.5rem;
   text-align: center;
 
   @at-root .section-sm & {
-    margin-bottom: 4rem;
+    margin-bottom: 2rem;
   }
 }
 
@@ -103,21 +76,10 @@
     fill: var(--section-bg);
   }
 
-  .wave-1 {
-    animation: move-forever1 30s linear infinite;
-    animation-delay: -2s;
-  }
-
-  .wave-2 {
-    opacity: 0.5;
-    animation: move-forever2 24s linear infinite;
-    animation-delay: -2s;
-  }
-
+  .wave-1,
+  .wave-2,
   .wave-3 {
-    opacity: 0.3;
-    animation: move-forever3 18s linear infinite;
-    animation-delay: -2s;
+    animation: none;
   }
 }
 

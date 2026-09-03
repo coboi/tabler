@@ -22,7 +22,7 @@
   line-height: var(--badge-line-height);
   color: var(--badge-color);
   text-align: center;
-  letter-spacing: 0.04em;
+  letter-spacing: 0;
   white-space: nowrap;
   vertical-align: bottom;
   user-select: none;
@@ -86,9 +86,7 @@
   inset-inline-end: 0 !important;
   top: 0 !important;
   z-index: 1;
-
-  /* rtl:ignore */
-  transform: translate(calc(var(--dir) * 50%), -50%);
+  transform: translate(50%, -50%);
 }
 
 .badge-blink {

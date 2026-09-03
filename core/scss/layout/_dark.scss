@@ -34,6 +34,11 @@
     // later source wins) — this is what actually flips every light-dark() token to dark.
     color-scheme: dark;
 
+    // Dropdown separation in dark: black 6% shadow is invisible on #0a0a0a; use heavier
+    // black + white hairline, and keep bg as --bg-surface with border for contrast.
+    --shadow-dropdown: 0 8px 24px rgb(0 0 0 / 45%), 0 0 0 1px rgb(255 255 255 / 12%);
+    --dropdown-box-shadow: 0 8px 24px rgb(0 0 0 / 45%), 0 0 0 1px rgb(255 255 255 / 12%);
+
     // Everything else here has been folded into light-dark() declarations in
     // layout/_root.scss; only genuinely dark-only, non-paired values remain.
     --btn-color: #{$darken-dark};

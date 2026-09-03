@@ -46,14 +46,12 @@
 
 .carousel-item-next:not(.carousel-item-start),
 .active.carousel-item-end {
-  /* rtl:ignore */
-  transform: translateX(calc(var(--dir) * 100%));
+  transform: translateX(100%);
 }
 
 .carousel-item-prev:not(.carousel-item-end),
 .active.carousel-item-start {
-  /* rtl:ignore */
-  transform: translateX(calc(var(--dir) * -100%));
+  transform: translateX(-100%);
 }
 
 //
@@ -136,10 +134,10 @@
 }
 
 .carousel-control-prev-icon {
-  background-image: escape-svg($carousel-control-prev-icon-bg) #{'/*rtl:' + escape-svg($carousel-control-next-icon-bg) + '*/'};
+  background-image: escape-svg($carousel-control-prev-icon-bg);
 }
 .carousel-control-next-icon {
-  background-image: escape-svg($carousel-control-next-icon-bg) #{'/*rtl:' + escape-svg($carousel-control-prev-icon-bg) + '*/'};
+  background-image: escape-svg($carousel-control-next-icon-bg);
 }
 
 // Optional indicator pips/controls

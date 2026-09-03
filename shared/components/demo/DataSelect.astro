@@ -14,7 +14,7 @@ interface Props {
 	class?: string;
 	state?: FormValidationState | undefined;
 	placeholder?: string;
-	/** option decoration: 'avatar' | 'flag' | 'label' */
+	/** option decoration: 'avatar' | 'label' */
 	indicator?: string;
 	/** plain value list — overrides the selects.json lookup */
 	values?: string[];
@@ -63,8 +63,7 @@ if (values) {
 	// object of { key: { name, flag?, label?, selected? } } — with optional indicator
 	options = Object.entries(data.options as Record<string, any>).map(([optKey, v]) => {
 		let custom: string | undefined;
-		if (indicator === 'flag') custom = `<span class="flag flag-xs flag-country-${v.flag}"></span>`;
-		else if (indicator === 'label') custom = `<span class="badge bg-primary-lt">${v.label}</span>`;
+		if (indicator === 'label') custom = `<span class="badge bg-primary-lt">${v.label}</span>`;
 		return { value: optKey, text: v.name, custom, selected: Boolean(v.selected) };
 	});
 }

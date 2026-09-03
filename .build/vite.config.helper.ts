@@ -13,7 +13,10 @@ interface CreateViteConfigOptions {
 }
 
 /**
- * Creates a Vite configuration for building libraries
+ * Creates a Vite configuration for building libraries.
+ *
+ * Sourcemaps are on by default (dev servers rely on them). Set
+ * TABLER_SOURCEMAP=false to skip .js.map output for published payloads.
  */
 export function createViteConfig({ entry, name, fileName, formats, outDir, banner, minify = false }: CreateViteConfigOptions): UserConfig {
   // Vite 8 (Rolldown) always emits const bindings and no longer accepts the
@@ -36,7 +39,7 @@ export function createViteConfig({ entry, name, fileName, formats, outDir, banne
       },
       outDir: path.resolve(outDir),
       emptyOutDir: false,
-      sourcemap: true,
+      sourcemap: process.env.TABLER_SOURCEMAP === 'false' ? false : true,
       rollupOptions: {
         output: rollupOutput,
       },

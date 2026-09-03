@@ -15,7 +15,6 @@ import SuccessModalContent from '@shared/components/modals/SuccessModalContent.a
 import DangerModalContent from '@shared/components/modals/DangerModalContent.astro'
 import TeamModalContent from '@shared/components/modals/TeamModalContent.astro'
 import SignatureModalContent from '@shared/components/modals/SignatureModalContent.astro'
-import NewEmailModalContent from '@shared/components/modals/NewEmailModalContent.astro'
 import NewEventModalContent from '@shared/components/modals/NewEventModalContent.astro'
 import NewTaskModalContent from '@shared/components/modals/NewTaskModalContent.astro'
 import EditProfileModalContent from '@shared/components/modals/EditProfileModalContent.astro'
@@ -45,7 +44,6 @@ const cardClass = 'position-relative rounded d-block bg-surface-backdrop py-6 w-
             <a href="#modal-danger" class="nav-link">Danger modal</a>
             <a href="#modal-team" class="nav-link">Modal with simple form</a>
             <a href="#modal-signature" class="nav-link">Modal with signature form</a>
-            <a href="#modal-new-email" class="nav-link">New email modal</a>
             <a href="#modal-new-event" class="nav-link">New event modal</a>
             <a href="#modal-new-task" class="nav-link">New task modal</a>
             <a href="#modal-edit-profile" class="nav-link">Edit profile modal</a>
@@ -114,12 +112,6 @@ const cardClass = 'position-relative rounded d-block bg-surface-backdrop py-6 w-
               <h3>Modal with signature form</h3>
               <ModalInline class={cardClass} modalId="signature" show>
                 <SignatureModalContent />
-              </ModalInline>
-            </div>
-            <div>
-              <h3>New email modal</h3>
-              <ModalInline class={cardClass} modalId="new-email" show>
-                <NewEmailModalContent />
               </ModalInline>
             </div>
             <div>

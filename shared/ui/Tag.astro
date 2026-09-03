@@ -1,14 +1,11 @@
 ---
 import Icon from './Icon.astro'
-import type { FlagCountry } from '@shared/lib/tokens'
 import type { Person } from '@shared/lib/people'
-import Flag from './Flag.astro'
 import Avatar from './Avatar.astro'
 import Badge from './Badge.astro'
 
 interface Props {
   text?: string | undefined
-  flag?: FlagCountry | undefined
   icon?: string
   person?: Person
   status?: string
@@ -21,14 +18,12 @@ interface Props {
   [key: string]: unknown
 }
 
-const { text, flag, icon, person, status, legend, checkbox, checked, badge, class: className, ...rest } = Astro.props
+const { text, icon, person, status, legend, checkbox, checked, badge, class: className, ...rest } = Astro.props
 ---
 
 <span class:list={['tag', className]} {...rest}>
   {
-    flag ? (
-      <Flag flag={flag} size="xxs" class="tag-flag" />
-    ) : icon ? (
+    icon ? (
       <Icon name={icon} size="sm" class="tag-icon" />
     ) : person ? (
       <Avatar person={person} size="xxs" class="tag-avatar" />

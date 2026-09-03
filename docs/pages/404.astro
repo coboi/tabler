@@ -3,13 +3,12 @@
 // routes every unmatched URL to /404.html with a 404 status.
 // Excluded from sitemap.xml.ts and absent from docs.json on purpose.
 import DocsLayout from '@layouts/DocsLayout.astro'
-import Illustration from '@ui/Illustration.astro'
 import Icon from '@ui/Icon.astro'
 ---
 
 <DocsLayout title="Page not found" summary="The page you are looking for does not exist or has been moved." description="The page you are looking for does not exist. Browse the Tabler documentation sections or use the search." hidePagination url="/404" editPath="docs/pages/404.astro">
   <div class="py-4" aria-hidden="true">
-    <Illustration image="not-found.svg" class="d-block mx-auto mw-100" height={240} />
+    <div class="d-flex justify-content-center"><Icon name="ghost" size="lg" /></div>
   </div>
 
   <p>The link may be broken, or the page may have been moved. Try searching the documentation or go back to the homepage.</p>

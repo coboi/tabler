@@ -19,7 +19,6 @@
     "preview": "astro preview",
     "clean": "shx rm -rf dist public/dist public/preview public/css .astro tmp-assets",
     "import-icons": "pnpm up @tabler/icons@latest && node .build/import-icons.mjs",
-    "import-illustrations": "node .build/import-illustrations.mjs",
     "type-check": "astro check"
   },
   "dependencies": {

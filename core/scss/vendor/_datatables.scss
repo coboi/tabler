@@ -1,0 +1,115 @@
+@use '../config' as *;
+
+// DataTables.net v3 + Bootstrap 5 — Tabler (Scandinavian) theme.
+//
+// The library reads its own `--dt*` names, so every custom property below
+// keeps the vendor name (see cssVarIgnore in .build/css-var-prefix.ts).
+// `tabler-vendors.css` loads after the DataTables stylesheets, so
+// equal-specificity rules below win without `!important`.
+
+:root,
+:host {
+  // Sort arrows: neutral idle, primary for the active direction.
+  --dt-order-arrow_color: rgb(0 0 0 / 30%);
+  --dt-order-arrow_color-current: var(--primary);
+  --dt-order-header_outline-hover: 2px solid rgb(0 0 0 / 5%);
+
+  // Stripe / hover / order-column tints stay neutral black in light mode.
+  --dt-row_background-stripe: 0, 0, 0;
+  --dt-row_background-hover: 0, 0, 0;
+  --dt-column-ordering_background: 0, 0, 0;
+}
+
+.theme-dark,
+[data-bs-theme='dark'],
+[data-theme='dark'] {
+  --dt-order-arrow_color: rgb(255 255 255 / 30%);
+  --dt-order-arrow_color-current: var(--primary);
+  --dt-order-header_outline-hover: 2px solid rgb(255 255 255 / 5%);
+  --dt-row_background-stripe: 255, 255, 255;
+  --dt-row_background-hover: 255, 255, 255;
+  --dt-column-ordering_background: 255, 255, 255;
+}
+
+// Selected rows use the Tabler selectable treatment (tinted background, body
+// text) instead of the stock solid-blue / white-text style. The long selectors
+// mirror DataTables' own specificity so these win by source order.
+// stylelint-disable selector-max-type
+table.table.dataTable > tbody > tr.selected > * {
+  color: var(--body-color);
+  box-shadow: inset 0 0 0 9999px var(--active-bg);
+}
+
+table.table.dataTable > tbody > tr.selected a {
+  color: inherit;
+}
+
+table.table.dataTable.table-striped > tbody > tr:nth-of-type(2n + 1).selected > *,
+table.table.dataTable.table-hover > tbody > tr.selected:hover > * {
+  box-shadow: inset 0 0 0 9999px var(--active-bg);
+}
+// stylelint-enable selector-max-type
+
+// Table chrome (length / info / empty state) reads as secondary text.
+div.dt-container div.dt-info,
+div.dt-container div.dt-empty {
+  color: var(--secondary);
+}
+
+// Processing overlay matches Tabler surfaces.
+div.dt-container div.dt-processing {
+  color: var(--body-color);
+  background: var(--bg-surface);
+  border: var(--border-width) var(--border-style) var(--border-color);
+  box-shadow: var(--shadow-dropdown);
+}
+
+// Button toolbar: Tabler default treatment instead of the translucent
+// `btn-secondary` gray. DT emits `btn btn-secondary` classes; these custom
+// properties retheme them without touching the markup.
+div.dt-container div.dt-buttons {
+  margin-bottom: $spacer * 0.5;
+
+  .btn {
+    --btn-bg: var(--bg-surface);
+    --btn-color: var(--body-color);
+    --btn-border-color: var(--border-color);
+    --btn-hover-bg: var(--bg-surface-secondary);
+    --btn-hover-color: var(--body-color);
+    --btn-hover-border-color: var(--border-color);
+    --btn-active-bg: var(--active-bg);
+    --btn-active-color: var(--body-color);
+    --btn-active-border-color: var(--border-color);
+    --btn-disabled-bg: var(--bg-surface);
+    --btn-disabled-color: var(--disabled-color);
+    --btn-disabled-border-color: var(--border-color);
+  }
+
+  // Processing spinner stays visible in both modes.
+  .btn.processing {
+    color: light-dark(rgb(0 0 0 / 20%), rgb(255 255 255 / 30%));
+  }
+}
+
+// Button collections (e.g. colvis) read `--bs-*` names Tabler never defines,
+// so they render transparent and overlap the table. Remap to Tabler surfaces.
+div.dt-button-collection {
+  background-color: var(--bg-surface);
+  border: var(--border-width) var(--border-style) var(--border-color-translucent);
+  box-shadow: var(--shadow-dropdown);
+}
+
+// Copy-to-clipboard info flash: surfaces instead of hardcoded white.
+div.dt-button-info {
+  color: var(--body-color);
+  background-color: var(--bg-surface);
+  border: var(--border-width) var(--border-style) var(--border-color-translucent);
+  box-shadow: var(--shadow-dropdown);
+}
+
+// Responsive child rows inherit the surface instead of hardcoded white.
+// stylelint-disable selector-max-type
+table.dataTable > tbody > tr.child {
+  background-color: var(--bg-surface-secondary);
+}
+// stylelint-enable selector-max-type

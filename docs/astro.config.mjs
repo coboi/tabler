@@ -87,7 +87,7 @@ export default defineConfig({
           from: path('../core/dist'),
           to: path('./public/dist'),
           label: '@tabler/core',
-          requiredFile: path('../core/dist/css/tabler.css'),
+          requiredFile: path('../core/dist/css/tabler.min.css'),
         },
         {
           // preview's demo assets, from its tmp-assets/ (not dist/ — see copy-assets.ts).

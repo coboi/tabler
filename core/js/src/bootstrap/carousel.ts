@@ -9,7 +9,7 @@ import BaseComponent from './base-component'
 import EventHandler from './dom/event-handler'
 import Manipulator from './dom/manipulator'
 import SelectorEngine from './dom/selector-engine'
-import { getNextActiveElement, isRTL, isVisible, reflow, triggerTransitionEnd } from './util/index'
+import { getNextActiveElement, isVisible, reflow, triggerTransitionEnd } from './util/index'
 import Swipe from './util/swipe'
 import type { ComponentConfig, ComponentConfigType } from './types'
 
@@ -366,18 +366,10 @@ class Carousel extends BaseComponent {
   }
 
   _directionToOrder(direction: string): string {
-    if (isRTL()) {
-      return direction === DIRECTION_LEFT ? ORDER_PREV : ORDER_NEXT
-    }
-
     return direction === DIRECTION_LEFT ? ORDER_NEXT : ORDER_PREV
   }
 
   _orderToDirection(order: string): string {
-    if (isRTL()) {
-      return order === ORDER_PREV ? DIRECTION_LEFT : DIRECTION_RIGHT
-    }
-
     return order === ORDER_PREV ? DIRECTION_RIGHT : DIRECTION_LEFT
   }
 }

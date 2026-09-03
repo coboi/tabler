@@ -71,10 +71,6 @@
       padding-inline-end: var(--breadcrumb-item-padding-x);
       color: var(--breadcrumb-divider-color);
       content: var(--breadcrumb-divider, escape-svg($breadcrumb-divider));
-
-      /* rtl:raw:
-      transform: scaleX(-1);
-      */
     }
   }
 }

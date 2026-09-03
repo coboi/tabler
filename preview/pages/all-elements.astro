@@ -36,32 +36,11 @@ import Range from '@ui/Range.astro'
 import Tag from '@ui/Tag.astro'
 import TagList from '@ui/TagList.astro'
 import Ribbon from '@ui/Ribbon.astro'
-import Flag from '@ui/Flag.astro'
-import Payment from '@ui/Payment.astro'
 import Timeline from '@components/demo/Timeline.astro'
 import Empty from '@ui/Empty.astro'
 import NavSegmented from '@ui/NavSegmented.astro'
 import ListGroup from '@ui/ListGroup.astro'
 import ListGroupItem from '@ui/ListGroupItem.astro'
-import payments from '@data/payments.json'
-
-const PAYMENT_IDS = ['visa', 'mastercard', 'paypal', 'americanexpress', 'applepay', 'google-pay', 'stripe', 'discover', 'jcb', 'maestro', 'dinersclub', 'bitcoin', 'ethereum', 'klarna', 'venmo', 'square'] as const
-type PaymentId = (typeof PAYMENT_IDS)[number]
-
-const paymentNames = Object.fromEntries((payments as { name: string; logo: string }[]).map((p) => [p.logo, p.name])) as Record<PaymentId, string>
-
-const countryNames = {
-  us: 'United States',
-  gb: 'United Kingdom',
-  de: 'Germany',
-  fr: 'France',
-  pl: 'Poland',
-  es: 'Spain',
-  it: 'Italy',
-  nl: 'Netherlands',
-  ca: 'Canada',
-  au: 'Australia',
-}
 
 const codeExample = `// JavaScript example
 function greetUser(name) {
@@ -70,7 +49,7 @@ function greetUser(name) {
 }`
 ---
 
-<DefaultLayout title="All Elements - Kitchen Sink" pageHeader="All Elements" pageMenu="base.all-elements" pageLibs={['nouislider', 'star-rating.js', 'tabler-flags', 'tabler-payments', 'tom-select']}>
+<DefaultLayout title="All Elements - Kitchen Sink" pageHeader="All Elements" pageMenu="base.all-elements" pageLibs={['nouislider', 'star-rating.js', 'tom-select']}>
   <div class="row row-cards">
     <!-- Typography Section -->
     <div class="col-12">
@@ -554,44 +533,6 @@ function greetUser(name) {
       </Card>
     </div>
 
-    <!-- Media Elements -->
-    <div class="col-md-6">
-      <Card>
-        <CardHeader title="Media Elements" />
-        <CardBody>
-          <h4>Flags</h4>
-          <div class="mb-3">
-            <div class="d-flex flex-wrap gap-2">
-              <Flag flag="us" ariaLabel={countryNames.us} />
-              <Flag flag="gb" ariaLabel={countryNames.gb} />
-              <Flag flag="de" ariaLabel={countryNames.de} />
-              <Flag flag="fr" ariaLabel={countryNames.fr} />
-              <Flag flag="pl" ariaLabel={countryNames.pl} />
-              <Flag flag="es" ariaLabel={countryNames.es} />
-              <Flag flag="it" ariaLabel={countryNames.it} />
-              <Flag flag="nl" ariaLabel={countryNames.nl} />
-              <Flag flag="ca" ariaLabel={countryNames.ca} />
-              <Flag flag="au" ariaLabel={countryNames.au} />
-            </div>
-          </div>
-
-          <h4>Payment Icons</h4>
-          <div class="mb-3">
-            <div class="d-flex flex-wrap gap-2">
-              {
-                PAYMENT_IDS.map((payment) => (
-                  <>
-                    <Payment payment={payment} ariaLabel={paymentNames[payment]} class="hide-theme-dark" />
-                    <Payment payment={payment} ariaLabel={paymentNames[payment]} dark class="hide-theme-light" />
-                  </>
-                ))
-              }
-            </div>
-          </div>
-        </CardBody>
-      </Card>
-    </div>
-
     <!-- Timeline Section -->
     <div class="col-md-6">
       <Card>
@@ -607,7 +548,7 @@ function greetUser(name) {
       <Card>
         <CardHeader title="Empty State" />
         <CardBody>
-          <Empty title="No data found" description="Try adjusting your search or filter to find what you're looking for." illustration="boy-girl.svg" buttonText="Add new item" buttonIcon="plus" />
+          <Empty title="No data found" description="Try adjusting your search or filter to find what you're looking for." buttonText="Add new item" buttonIcon="plus" />
         </CardBody>
       </Card>
     </div>

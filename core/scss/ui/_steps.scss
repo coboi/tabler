@@ -85,9 +85,7 @@
     height: var(--steps-dot-size);
     color: var(--white);
     content: '';
-
-    /* rtl:ignore */
-    transform: translateX(calc(var(--dir) * -50%));
+    transform: translateX(-50%);
     @include border-radius(var(--border-radius-pill));
   }
 
@@ -163,9 +161,7 @@
         width: var(--steps-border-width);
         height: calc(100% + var(--steps-vertical-connector-gap));
         content: '';
-
-        /* rtl:ignore */
-        transform: translateX(calc(var(--dir) * -50%));
+        transform: translateX(-50%);
       }
     }
   }

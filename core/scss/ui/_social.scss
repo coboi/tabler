@@ -22,8 +22,8 @@
   }
 }
 
-@each $flag-size, $size in config.$flag-sizes {
-  .social-#{$flag-size} {
+@each $social-size, $size in config.$avatar-sizes {
+  .social-#{$social-size} {
     height: map.get($size, size);
   }
 }

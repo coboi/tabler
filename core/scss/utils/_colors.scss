@@ -26,16 +26,16 @@
   }
 
   .bg-gradient-from-#{'' + $color} {
-    --gradient-from: var(--#{$color});
+    --gradient-from: transparent;
   }
 
   .bg-gradient-to-#{'' + $color} {
-    --gradient-to: var(--#{$color});
+    --gradient-to: transparent;
   }
 
   .bg-gradient-via-#{'' + $color} {
-    --gradient-via: var(--#{$color});
-    --gradient-stops: var(--gradient-from, transparent), var(--gradient-via, transparent), var(--gradient-to, transparent);
+    --gradient-via: transparent;
+    --gradient-stops: none;
   }
 
   .text-bg-#{'' + $color} {

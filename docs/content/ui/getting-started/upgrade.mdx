@@ -3,7 +3,7 @@ title: Upgrade to 1.5
 summary: Move your project from Tabler 1.4 to 1.5. This guide lists every breaking change, with a before and after example for each one, so you know exactly what to update in your markup, JavaScript and Sass.
 description: Upgrade guide from Tabler 1.4 to 1.5 with all breaking changes, renamed classes and Sass updates.
 added-in: '1.5.0'
-related: [/ui/getting-started/rtl]
+related: []
 ---
 
 Most projects only use the compiled CSS and JavaScript from `dist/`. If that is you, the upgrade is short: update the package, remove Bootstrap, and check the [color mode default](#color-mode-defaults-to-auto) and the [visual changes](#visual-changes). Projects that compile Tabler from the Sass sources have more work to do — see [Sass changes](#sass-changes).
@@ -23,9 +23,8 @@ Use `.badges-list` or `.tags-list`|Rename to `.badge-list` and `.tag-list` (old 
 Use ApexCharts|Update to ApexCharts 7
 Use Turbo with Tabler|The built-in integration is gone — see [Turbo](#turbo-integration-removed)
 Load `tabler-theme.js`|Pages follow the OS color scheme now — see [Color mode](#color-mode-defaults-to-auto)
-Use payment provider icons|Check the [removed providers](#removed-payment-providers)
 Link files inside `dist/libs`|Check the [moved paths](#smaller-distlibs-folder)
-Load `tabler.rtl.css`|You can drop it — plain `tabler.css` now handles RTL
+Load `tabler.rtl.css`|Removed — RTL support has been dropped in this fork
 
 ## Update the package
 
@@ -123,14 +122,6 @@ The script applies the resolved mode on every load, so a `data-bs-theme` you ren
 
 If you keep the script, a visitor can pick a mode with `?theme=light` or `?theme=dark` in the URL, and the choice is stored in `localStorage`. See [Color modes](/ui/getting-started/color-modes) for all theme settings.
 
-## Removed payment providers
-
-The payment icons now come from the [Tabler Payments](/payments) set, which adds 74 providers and drops 12 that no longer operate. Their `.payment-provider-*` classes and `dist/img/payments/*.svg` files are gone:
-
-`clickandbuy`, `dotpay`, `laser`, `ogone`, `okpay`, `paymill`, `payza`, `sage`, `solo`, `switch`, `ukash`, `verisign`
-
-If you still show one of them, copy its SVG from the 1.4 package into your project.
-
 ## Smaller dist/libs folder
 
 `dist/libs` now holds only the runtime files each library needs, instead of a full copy of every package. If you link straight to a file inside `dist/libs`, check that the path still exists after the upgrade. These are the paths most likely to break:
@@ -142,9 +133,7 @@ Removed|Use instead
 `countup.js/dist/countUp.min.js`|`countup.js/dist/countUp.umd.js`
 `signature_pad/dist/signature_pad.min.js`|`signature_pad/dist/signature_pad.umd.min.js`
 `star-rating.js/dist/star-rating.esm.min.js`|`star-rating.js/dist/star-rating.min.js`
-`plyr/dist/plyr.polyfilled.min.js`|`plyr/dist/plyr.min.js`
 `litepicker/dist/bundle.js`|`litepicker/dist/litepicker.js`
-`jsvectormap/dist/jsvectormap.min.css`|`jsvectormap/dist/jsvectormap.css`
 `@hotwired/turbo/`|Install `@hotwired/turbo` yourself, see [Turbo](#turbo-integration-removed)
 
 The base build of Tom Select ships without plugins, so load any plugin you use from npm. The unminified builds are gone as well, such as `apexcharts/dist/apexcharts.js` or `clipboard/dist/clipboard.js`: link the `.min.js` file next to them. Anything else that is no longer shipped can be loaded from your own `node_modules` or from a CDN. The list of shipped files is in [libs.json](https://github.com/tabler/tabler/blob/dev/core/libs.json).
@@ -194,7 +183,7 @@ const result = await postcss([
   prefixCustomProperties({
     prefix: 'tblr-',
     // Vendor stylesheets read their own variable names — never prefix these
-    ignore: [/^--tblr-/, /^--bs-/, /^--fc-/, /^--gl-/, /^--litepicker-/, /^--plyr-/, /^--ts-/, '--section-bg'],
+    ignore: [/^--tblr-/, /^--bs-/, /^--litepicker-/, /^--ts-/, '--section-bg'],
   }),
 ]).process(css, { from: undefined })
 ```
@@ -275,18 +264,6 @@ These changes are not breaking, but they change how a page looks. Check your scr
 - **Cards** — `--tblr-card-header-bg` and `--tblr-card-footer-bg` can be set on their own, and the card status bar is `3px`.
 - **Layout** — `scrollbar-gutter: stable` on `html` removes the white gap next to the scrollbar.
 - **Trending** — the component uses the `arrow-up` and `arrow-down` icons instead of `trending-up` and `trending-down`.
-
-## RTL
-
-The Sass sources use logical properties and a `--tblr-dir` multiplier, so plain `tabler.css` works in both directions. Set `dir` on the document and drop the RTL stylesheet:
-
-```diff
-  <html dir="rtl">
-- <link rel="stylesheet" href="/dist/css/tabler.rtl.min.css" />
-+ <link rel="stylesheet" href="/dist/css/tabler.min.css" />
-```
-
-The `*.rtl.css` files are still published, so nothing breaks if you keep them. See the [RTL support](/ui/getting-started/rtl) page for the full list of RTL builds and which utilities flip automatically.
 
 ## Third party libraries
 

@@ -49,14 +49,11 @@ Each flag maps to one documented body/layout class, so reach for the prop instea
 
 | Prop | Class |
 | --- | --- |
-| `sidebar`, `sidebarDark`, `sidebarEnd` | `layout-sidebar`, `layout-sidebar-dark`, `layout-sidebar-end` |
+| `sidebar`, `sidebarDark`, `sidebarUser` | vertical sidebar (`DefaultLayout sidebar hideTopbar` = vertical, default = horizontal) |
 | `hideTopbar` | `layout-hide-topbar` |
-| `navbarTransparent`, `navbarCondensed`, `navbarDark`, `navbarOverlap`, `navbarSticky`, `navbarHideBrand` | the matching `layout-navbar-*` classes |
-| `navbarClass` | extra classes on the navbar |
 | `wrapperFull` | `page-wrapper-full`, drops the `.container-xl` around the body |
 | `containerCentered`, `containerClass` | `my-auto` / extra classes on the `.container-xl` |
-| `bodyClass` | free-form body classes — `layout-boxed`, `layout-fluid` |
-| `rtl` | `dir="rtl"` plus the RTL stylesheets |
+| `bodyClass` | free-form body classes |
 
 ## 4. The page-header slot
 
@@ -86,7 +83,7 @@ If a page contains `<div class="page-header">`, `<h2 class="page-title">`, `page
 
 - [ ] Layout chosen from the table, not `BaseLayout` plus hand-written chrome
 - [ ] `title`, `description`, `pageMenu` set; no `pageHeader` repeating `title`
-- [ ] Chrome via named flags, `bodyClass` only for `layout-boxed` / `layout-fluid`
+- [ ] Chrome via named flags (`sidebar` + `hideTopbar` = vertical, default = horizontal)
 - [ ] Header extras in the `page-header-actions` slot
 - [ ] `pageLibs` listed for every plugin the page initialises
 - [ ] Page opened in the browser (`astro-dev` skill); `html-diff` run if a shared layout changed

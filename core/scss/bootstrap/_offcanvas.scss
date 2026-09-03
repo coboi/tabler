@@ -55,9 +55,7 @@
         inset-inline-start: 0;
         width: var(--offcanvas-width);
         border-inline-end: var(--offcanvas-border-width) solid var(--offcanvas-border-color);
-
-        /* rtl:ignore */
-        transform: translateX(calc(var(--dir) * -100%));
+        transform: translateX(-100%);
       }
 
       &.offcanvas-end {
@@ -65,9 +63,7 @@
         inset-inline-end: 0;
         width: var(--offcanvas-width);
         border-inline-start: var(--offcanvas-border-width) solid var(--offcanvas-border-color);
-
-        /* rtl:ignore */
-        transform: translateX(calc(var(--dir) * 100%));
+        transform: translateX(100%);
       }
 
       &.offcanvas-top {

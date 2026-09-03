@@ -2,7 +2,7 @@
 title: Tag
 summary: Use tags to show compact metadata values with optional media, badges, and remove actions.
 description: Build inline tag elements with the tag class API and related tag part classes.
-css-plugins: [flags, payments]
+
 related: [/ui/components/badge]
 source: core/scss/ui/_tags.scss
 classnames:
@@ -12,10 +12,6 @@ classnames:
   part:
     - class: tag-avatar
       desc: Avatar at the start of the tag
-    - class: tag-flag
-      desc: Country flag at the start of the tag
-    - class: tag-payment
-      desc: Payment provider logo at the start of the tag
     - class: tag-icon
       desc: Icon slot inside the tag
     - class: tag-check
@@ -26,9 +22,7 @@ classnames:
       desc: Wrapper that spaces several tags in a row
 ---
 import Example from '@components/Example.astro';
-import Flag from '@ui/Flag.astro';
 import Icon from '@ui/Icon.astro';
-import Payment from '@ui/Payment.astro';
 import TagList from '@ui/TagList.astro';
 import CodeDocs from '@components/CodeDocs.astro';
 
@@ -53,23 +47,15 @@ Use `.tag-icon` for a leading icon inside a tag. The icon uses compact size and 
 </span>
 </Example>
 
-### With avatar, flag, or payment
+### With avatar
 
-Use `.tag-avatar`, `.tag-flag`, or `.tag-payment` to add media at the start of the tag. These classes keep spacing aligned with tag content.
+Use `.tag-avatar` to add media at the start of the tag. This class keeps spacing aligned with tag content.
 
 <Example centered>
 <TagList>
   <span class="tag">
     <span class="avatar avatar-xs tag-avatar">AP</span> Alex P.
     <a href="#" class="btn-close" aria-label="Remove Alex tag"></a>
-  </span>
-  <span class="tag">
-    <Flag flag="us" size="xxs" class="tag-flag" /> United States
-    <a href="#" class="btn-close" aria-label="Remove country tag"></a>
-  </span>
-  <span class="tag">
-    <Payment payment="visa" size="xxs" class="tag-payment" /> Visa
-    <a href="#" class="btn-close" aria-label="Remove payment tag"></a>
   </span>
 </TagList>
 </Example>

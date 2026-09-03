@@ -3,7 +3,6 @@ import DefaultLayout from '@shared/layouts/DefaultLayout.astro'
 import Table from '@components/demo/Table.astro'
 import Progressbg from '@shared/components/cards/tables/Progressbg.astro'
 import Invoices from '@shared/components/cards/Invoices.astro'
-import AdvancedTable from '@components/demo/AdvancedTable.astro'
 import Card from '@ui/Card.astro'
 import CardHeader from '@ui/CardHeader.astro'
 import CardTitle from '@ui/CardTitle.astro'
@@ -11,7 +10,7 @@ import CardSubtitle from '@ui/CardSubtitle.astro'
 import DocsLink from '@ui/DocsLink.astro'
 ---
 
-<DefaultLayout title="Tables" pageMenu="base.tables" pageLibs={['lists']}>
+<DefaultLayout title="Tables" pageMenu="base.tables">
   <DocsLink slot="page-header-actions" path="/ui/components/table" />
   <div class="row row-cards">
     <div class="col-lg-8">
@@ -68,10 +67,6 @@ import DocsLink from '@ui/DocsLink.astro'
 
     <div class="col-12">
       <Invoices />
-    </div>
-
-    <div class="col-12">
-      <AdvancedTable id="advanced-table" />
     </div>
   </div>
 </DefaultLayout>

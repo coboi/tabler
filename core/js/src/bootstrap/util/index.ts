@@ -154,8 +154,6 @@ const reflow = (element: HTMLElement): void => {
   element.offsetHeight // eslint-disable-line no-unused-expressions
 }
 
-const isRTL = (): boolean => document.documentElement.dir === 'rtl'
-
 const execute = (possibleCallback: unknown, args: unknown[] = [], defaultValue: unknown = possibleCallback): unknown => {
   return typeof possibleCallback === 'function' ? possibleCallback.call(args[0], ...args.slice(1)) : defaultValue
 }
@@ -206,4 +204,4 @@ const getNextActiveElement = <T>(list: T[], activeElement: T, shouldGetNext: boo
   return list[Math.max(0, Math.min(index, listLength - 1))]
 }
 
-export { execute, executeAfterTransition, findShadowRoot, getElement, getNextActiveElement, getTransitionDurationFromElement, getUID, isDisabled, isElement, isRTL, isVisible, noop, parseSelector, reflow, triggerTransitionEnd, toType }
+export { execute, executeAfterTransition, findShadowRoot, getElement, getNextActiveElement, getTransitionDurationFromElement, getUID, isDisabled, isElement, isVisible, noop, parseSelector, reflow, triggerTransitionEnd, toType }

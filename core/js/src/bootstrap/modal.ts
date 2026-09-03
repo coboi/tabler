@@ -11,7 +11,7 @@ import SelectorEngine from './dom/selector-engine'
 import Backdrop from './util/backdrop'
 import { enableDismissTrigger } from './util/component-functions'
 import FocusTrap from './util/focustrap'
-import { isRTL, isVisible, reflow } from './util/index'
+import { isVisible, reflow } from './util/index'
 import ScrollBarHelper from './util/scrollbar'
 
 /**
@@ -302,13 +302,11 @@ class Modal extends BaseComponent {
     const isBodyOverflowing = scrollbarWidth > 0
 
     if (isBodyOverflowing && !isModalOverflowing) {
-      const property = isRTL() ? 'paddingLeft' : 'paddingRight'
-      this._element.style[property] = `${scrollbarWidth}px`
+      this._element.style.paddingRight = `${scrollbarWidth}px`
     }
 
     if (!isBodyOverflowing && isModalOverflowing) {
-      const property = isRTL() ? 'paddingRight' : 'paddingLeft'
-      this._element.style[property] = `${scrollbarWidth}px`
+      this._element.style.paddingLeft = `${scrollbarWidth}px`
     }
   }
 

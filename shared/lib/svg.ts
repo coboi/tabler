@@ -24,10 +24,3 @@ export function iconSvg(name: string, { filled = false, classes = 'icon' }: { fi
 export function iconSourceComment(name: string): string {
   return `<!-- Download SVG icon from http://tabler.io/icons/icon/${name} -->`
 }
-
-/** Rewrites a free-illustration SVG source: injects classes and/or swaps the fixed 800x600 size for a height. */
-export function illustrationSvg(source: string, { classes, height }: { classes?: string; height?: number | string } = {}): string {
-  let svg = classes ? source.replaceAll('<svg ', `<svg class="${classes}" `) : source
-  if (height !== undefined) svg = svg.replaceAll('width="800" height="600"', `height="${height}"`)
-  return svg
-}

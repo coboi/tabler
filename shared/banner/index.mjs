@@ -18,20 +18,18 @@ function getBanner(pluginFilename) {
  */`
 }
 
-// Plugin entrypoint → the name shown in its banner. The `.rtl` and `.min`
+// Plugin entrypoint → the name shown in its banner. The `.min`
 // variants of a file share the entrypoint's name; anything without an entry
 // here (tabler, tabler-props, tabler-themes) gets the plain "Tabler" banner.
 const plugins = {
-  'tabler-flags': 'Flags',
   'tabler-marketing': 'Marketing',
-  'tabler-payments': 'Payments',
   'tabler-socials': 'Socials',
   'tabler-vendors': 'Vendors',
 }
 
-// e.g. dist/css/tabler-flags.rtl.min.css → the "Tabler Flags" banner.
+// e.g. dist/css/tabler-marketing.min.css → the "Tabler Marketing" banner.
 export function getBannerForFile(file) {
-  const name = path.basename(file).replace(/(\.rtl)?(\.min)?\.css$/, '')
+  const name = path.basename(file).replace(/(\.min)?\.css$/, '')
 
   return getBanner(plugins[name])
 }

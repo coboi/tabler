@@ -31,78 +31,26 @@ interface Props {
   wrapperFull?: boolean
   /** extra classes on the .container-xl */
   containerClass?: string
-  /** extra body classes, e.g. "layout-boxed" or "layout-fluid" */
+  /** extra body classes */
   bodyClass?: string
-  /** dir="rtl" and the RTL stylesheets */
-  rtl?: boolean
-  /** sidebar on the end side */
-  sidebarEnd?: boolean
-  /** icon-only sidebar rail with flyout submenus */
-  sidebarFolded?: boolean
-  /** folded rail that unfolds on hover/focus */
-  sidebarFoldedHover?: boolean
-  /** renders the runtime fold toggle button in the sidebar */
-  sidebarFoldToggle?: boolean
   /** user block in the sidebar footer */
   sidebarUser?: boolean
-  /** transparent sidebar */
-  navbarTransparent?: boolean
-  /** condensed single-row navbar */
-  navbarCondensed?: boolean
-  /** dark navbar */
-  navbarDark?: boolean
-  /** navbar overlapping the page header */
-  navbarOverlap?: boolean
-  /** sticky navbar */
-  navbarSticky?: boolean
-  /** hides the brand in the navbar */
-  navbarHideBrand?: boolean
-  /** extra classes on the navbar */
-  navbarClass?: string
 }
 
-const {
-  title,
-  pageLibs,
-  pageHeader,
-  pageHeaderFile,
-  pretitle,
-  description,
-  pageMenu,
-  sidebar,
-  sidebarDark,
-  hideTopbar,
-  containerCentered,
-  wrapperFull,
-  containerClass,
-  bodyClass,
-  rtl,
-  sidebarEnd,
-  sidebarFolded,
-  sidebarFoldedHover,
-  sidebarFoldToggle,
-  sidebarUser,
-  navbarTransparent,
-  navbarCondensed,
-  navbarDark,
-  navbarOverlap,
-  navbarSticky,
-  navbarHideBrand,
-  navbarClass,
-} = Astro.props
+const { title, pageLibs, pageHeader, pageHeaderFile, pretitle, description, pageMenu, sidebar, sidebarDark, hideTopbar, containerCentered, wrapperFull, containerClass, bodyClass, sidebarUser } = Astro.props
 
 // Most pages repeat the page title verbatim, so `pageHeader` falls back to `title`.
 // Pages that deliberately have no header (blank, playgrounds) pass pageHeader={false}.
 const headerTitle = pageHeader === false ? undefined : (pageHeader ?? title)
 ---
 
-<BaseLayout title={title} pageLibs={pageLibs} bodyClass={bodyClass} rtl={rtl} description={description}>
+<BaseLayout title={title} pageLibs={pageLibs} bodyClass={bodyClass} description={description}>
   <div class="page">
     {
       sidebar && (
         <Fragment>
           <Fragment set:html={'<!--  BEGIN SIDEBAR  -->'} />
-          <Sidebar dark={sidebarDark} end={sidebarEnd} transparent={navbarTransparent} folded={sidebarFolded} foldedHover={sidebarFoldedHover} foldToggle={sidebarFoldToggle} user={sidebarUser} breakpoint="lg" pageMenu={pageMenu} />
+          <Sidebar dark={sidebarDark} user={sidebarUser} breakpoint="lg" pageMenu={pageMenu} />
           <Fragment set:html={'<!--  END SIDEBAR  -->'} />
         </Fragment>
       )
@@ -112,7 +60,7 @@ const headerTitle = pageHeader === false ? undefined : (pageHeader ?? title)
       !hideTopbar && (
         <Fragment>
           <Fragment set:html={'<!-- BEGIN NAVBAR  -->'} />
-          <Navbar hideSearch pageMenu={pageMenu} condensed={navbarCondensed} dark={navbarDark} overlap={navbarOverlap} sticky={navbarSticky} hideBrand={navbarHideBrand} class={navbarClass} />
+          <Navbar hideSearch pageMenu={pageMenu} />
           <Fragment set:html={'<!-- END NAVBAR  -->'} />
         </Fragment>
       )
@@ -120,7 +68,7 @@ const headerTitle = pageHeader === false ? undefined : (pageHeader ?? title)
 
     <div class:list={['page-wrapper', wrapperFull && 'page-wrapper-full']}>
       <!-- BEGIN PAGE HEADER -->
-      <PageHeader title={headerTitle} pretitle={pretitle} description={description} file={pageHeaderFile} textWhite={navbarOverlap && navbarDark}>
+      <PageHeader title={headerTitle} pretitle={pretitle} description={description} file={pageHeaderFile}>
         <slot name="page-header-actions" slot="actions" />
       </PageHeader>
       <!-- END PAGE HEADER -->

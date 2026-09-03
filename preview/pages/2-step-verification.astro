@@ -3,8 +3,12 @@ import FormFooter from '@ui/FormFooter.astro'
 import SingleLayout from '@shared/layouts/SingleLayout.astro'
 import Button from '@ui/Button.astro'
 import FormGroup from '@ui/FormGroup.astro'
-import flags from '@data/flags.json'
+import selects from '@data/selects.json'
 import CardTitle from '@ui/CardTitle.astro'
+
+// Flags were hard-deleted; the country list comes from the surviving
+// selects.json data instead.
+const countries = Object.values((selects as Record<string, any>).countries.options as Record<string, { name: string }>).map((c) => c.name)
 ---
 
 <SingleLayout title="2-Step Verification">
@@ -14,7 +18,7 @@ import CardTitle from '@ui/CardTitle.astro'
 
       <FormGroup label="Country" for="verify-country">
         <select class="form-select" id="verify-country" autocomplete="country-name">
-          {flags.map((country) => <option value={country.name}>{country.name}</option>)}
+          {countries.map((name) => <option value={name}>{name}</option>)}
         </select>
       </FormGroup>
 

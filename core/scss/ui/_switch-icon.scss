@@ -166,14 +166,12 @@
   }
 
   .switch-icon-b {
-    /* rtl:ignore */
-    transform: translateX(calc(var(--dir) * 100%));
+    transform: translateX(100%);
   }
 
   &.active {
     .switch-icon-a {
-      /* rtl:ignore */
-      transform: translateX(calc(var(--dir) * -100%));
+      transform: translateX(-100%);
     }
 
     .switch-icon-b {
@@ -189,14 +187,12 @@
   }
 
   .switch-icon-b {
-    /* rtl:ignore */
-    transform: translateX(calc(var(--dir) * -100%));
+    transform: translateX(-100%);
   }
 
   &.active {
     .switch-icon-a {
-      /* rtl:ignore */
-      transform: translateX(calc(var(--dir) * 100%));
+      transform: translateX(100%);
     }
 
     .switch-icon-b {

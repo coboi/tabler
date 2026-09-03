@@ -2,24 +2,11 @@
 
 @use '../config' as *;
 
-@property --card-gradient-direction {
-  syntax: '<angle>';
-  inherits: true;
-  initial-value: 180deg;
-}
-
-@keyframes gradient-animation {
-  0% {
-    --card-gradient-direction: 180deg;
-  }
-
-  100% {
-    --card-gradient-direction: 540deg;
-  }
-}
+// Removed decorative gradient property/animation — Scandinavian: no ornamental gradients
+// @property --card-gradient-direction and @keyframes gradient-animation deleted
 
 .card {
-  @include transition(transform $transition-time ease-out, opacity $transition-time ease-out, box-shadow $transition-time ease-out);
+  @include transition(border-color $transition-time ease-out, background-color $transition-time ease-out);
 
   @include media-print() {
     border: none;
@@ -93,7 +80,7 @@
   font-size: calc(var(--stamp-size) * 0.75);
   color: var(--card-bg, var(--bg-surface));
   background: var(--secondary);
-  transform: rotate(10deg);
+  transform: none;
   @include border-radius(var(--border-radius-pill));
 
   .icon {
@@ -152,7 +139,7 @@
 
   &:hover {
     text-decoration: none;
-    background: $active-bg;
+    background: var(--active-bg);
   }
 
   & + & {
@@ -250,37 +237,21 @@ Stacked card
   margin-bottom: calc(-1 * var(--card-header-pills-margin));
 }
 
-// Card rotate
-.card-rotate-left,
-.card-rotate-start {
-  transform: rotate(-1.5deg);
-}
+// Card rotate — removed (decorative)
+// .card-rotate-* deleted — was rotate(-1.5deg/1.5deg)
 
-.card-rotate-right,
-.card-rotate-end {
-  transform: rotate(1.5deg);
-}
-
-// Card link
+// Card link — Scandinavian: border darkening, no shadow lift or rotate/pop
 .card-link {
   color: inherit;
 
   &:hover {
     color: inherit;
     text-decoration: none;
-    box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.08);
+    border-color: var(--border-dark-color-translucent);
   }
 }
 
-.card-link-rotate:hover {
-  opacity: 1;
-  transform: rotate(1.5deg);
-}
-
-.card-link-pop:hover {
-  opacity: 1;
-  transform: translateY(-2px);
-}
+// .card-link-rotate and .card-link-pop removed
 
 // Card footer
 .card-footer {
@@ -683,88 +654,42 @@ Card list group
 }
 
 /**
-Card note
+Card note — Scandinavian: neutral, not tinted cream
 */
 .card-note {
-  --card-bg: #fff7dd;
-  --card-border-color: #fff1c9;
+  --card-bg: light-dark(rgb(0 0 0 / 3%), rgb(255 255 255 / 6%));
+  --card-border-color: light-dark(rgb(0 0 0 / 10%), rgb(255 255 255 / 10%));
 }
 
-/**
-Card gradient
-*/
-// Split out so scss/tests/_cards.test.scss can assert on it directly — a bare
-// top-level ruleset like .card-gradient can't be @include-d or otherwise
-// referenced in isolation by sass-true.
+// Card gradients removed — Scandinavian: decorative gradients encode no state.
+// Keep class names as no-op aliases for BC; background falls through to --card-bg.
 @mixin card-gradient-background {
-  background:
-    radial-gradient(ellipse at center, var(--card-bg) 0%, color-mix(in sRGB, var(--card-bg) 0%, transparent) 80%) border-box,
-    linear-gradient(var(--card-gradient-direction), color-mix(in sRGB, var(--card-bg) var(--card-gradient-opacity), transparent) 0%, var(--card-bg) 40%) border-box,
-    linear-gradient(calc(270deg + var(--card-gradient-direction)), var(--card-gradient)) border-box;
+  background: var(--card-bg, var(--bg-surface));
 }
 
 .card-gradient {
-  --card-gradient-direction: 180deg;
-  --card-gradient-opacity: 86%;
-  --card-gradient: var(--primary), var(--primary);
-
-  @include card-gradient-background();
+  background: var(--card-bg, var(--bg-surface));
 }
 
 @each $name, $color in map.merge($colors, $theme-colors) {
   .card-gradient-#{$name} {
-    --card-gradient: var(--#{$name}), var(--#{$name});
+    background: var(--card-bg, var(--bg-surface));
   }
 }
 
-.card-gradient-rainbow {
-  --card-gradient: #78c5d6, #459ba8, #79c267, #c5d647, #f5d63d, #f08b33, #e868a2, #be61a5;
-}
-
-.card-gradient-sun {
-  --card-gradient: #fd1d1d, #fcb045;
-}
-
-.card-gradient-snow {
-  --card-gradient: #333, #e9ecef;
-}
-
-.card-gradient-ocean {
-  --card-gradient: #1cb5e0, #000851;
-}
-
-.card-gradient-mellow {
-  --card-gradient: #f8ff00, #3ad59f;
-}
-
-.card-gradient-disco {
-  --card-gradient: #fc466b, #3f5efb;
-}
-
-.card-gradient-psychedelic {
-  --card-gradient: #fcc5e4, #fda34b, #ff7882, #c8699e, #7046aa, #0c1db8, #020f75;
-}
-
-.card-gradient-love {
-  --card-gradient: #f235e6, #bc0707;
-}
-
-.card-gradient-gold {
-  --card-gradient: #9d4100, #bf7122, #f59f00, #ffd700;
-}
-
-.card-gradient-animated {
-  animation: gradient-animation 15s linear infinite;
-}
-
-.card-gradient-bottom {
-  --card-gradient-direction: 0deg;
-}
-
-.card-gradient-end {
-  --card-gradient-direction: 270deg;
-}
-
+.card-gradient-rainbow,
+.card-gradient-sun,
+.card-gradient-snow,
+.card-gradient-ocean,
+.card-gradient-mellow,
+.card-gradient-disco,
+.card-gradient-psychedelic,
+.card-gradient-love,
+.card-gradient-gold,
+.card-gradient-animated,
+.card-gradient-bottom,
+.card-gradient-end,
 .card-gradient-start {
-  --card-gradient-direction: 90deg;
+  background: var(--card-bg, var(--bg-surface));
+  animation: none;
 }

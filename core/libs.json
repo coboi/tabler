@@ -32,10 +32,67 @@
       "dist/countUp.umd.js"
     ]
   },
-  "lists": {
-    "npm": "list.js",
+  "datatables": {
+    "npm": "datatables.net",
     "js": [
-      "dist/list.min.js"
+      "js/dataTables.min.js"
+    ]
+  },
+  "datatables-bs5": {
+    "npm": "datatables.net-bs5",
+    "js": [
+      "js/dataTables.bootstrap5.min.js"
+    ],
+    "css": [
+      "css/dataTables.bootstrap5.min.css"
+    ]
+  },
+  "datatables-responsive": {
+    "npm": "datatables.net-responsive",
+    "js": [
+      "js/dataTables.responsive.min.js"
+    ]
+  },
+  "datatables-responsive-bs5": {
+    "npm": "datatables.net-responsive-bs5",
+    "js": [
+      "js/responsive.bootstrap5.min.js"
+    ],
+    "css": [
+      "css/responsive.bootstrap5.min.css"
+    ]
+  },
+  "datatables-buttons": {
+    "npm": "datatables.net-buttons",
+    "js": [
+      "js/dataTables.buttons.min.js",
+      "js/buttons.colVis.min.js",
+      "js/buttons.html5.min.js",
+      "js/buttons.print.min.js"
+    ]
+  },
+  "datatables-buttons-bs5": {
+    "npm": "datatables.net-buttons-bs5",
+    "js": [
+      "js/buttons.bootstrap5.min.js"
+    ],
+    "css": [
+      "css/buttons.bootstrap5.min.css"
+    ]
+  },
+  "datatables-select": {
+    "npm": "datatables.net-select",
+    "js": [
+      "js/dataTables.select.min.js"
+    ]
+  },
+  "datatables-select-bs5": {
+    "npm": "datatables.net-select-bs5",
+    "js": [
+      "js/select.bootstrap5.min.js"
+    ],
+    "css": [
+      "css/select.bootstrap5.min.css"
     ]
   },
   "sortablejs": {
@@ -47,19 +104,6 @@
   "masonry": {
     "js": [
       "https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js"
-    ]
-  },
-  "mapbox": {
-    "js": [
-      "https://api.mapbox.com/mapbox-gl-js/v1.8.0/mapbox-gl.js"
-    ],
-    "css": [
-      "https://api.mapbox.com/mapbox-gl-js/v1.8.0/mapbox-gl.css"
-    ]
-  },
-  "google-maps": {
-    "js": [
-      "https://maps.googleapis.com/maps/api/js?key=GOOGLE_MAPS_KEY"
     ]
   },
   "litepicker": {
@@ -77,23 +121,6 @@
       "dist/css/tom-select.bootstrap5.min.css"
     ]
   },
-  "jsvectormap": {
-    "npm": "jsvectormap",
-    "js": [
-      "dist/jsvectormap.min.js",
-      "dist/maps/world.js",
-      "dist/maps/world-merc.js"
-    ],
-    "css": [
-      "dist/jsvectormap.css"
-    ]
-  },
-  "fslightbox": {
-    "npm": "fslightbox",
-    "js": [
-      "index.js"
-    ]
-  },
   "hugerte": {
     "npm": "hugerte",
     "js": [
@@ -103,22 +130,28 @@
       "themes/silver/theme.min.js",
       "models/dom/model.min.js",
       "icons/default/icons.min.js",
-      "plugins/*/plugin.min.js",
+      "plugins/advlist/plugin.min.js",
+      "plugins/anchor/plugin.min.js",
+      "plugins/autolink/plugin.min.js",
+      "plugins/charmap/plugin.min.js",
+      "plugins/code/plugin.min.js",
+      "plugins/fullscreen/plugin.min.js",
+      "plugins/help/plugin.min.js",
+      "plugins/image/plugin.min.js",
+      "plugins/insertdatetime/plugin.min.js",
+      "plugins/link/plugin.min.js",
+      "plugins/lists/plugin.min.js",
+      "plugins/media/plugin.min.js",
+      "plugins/preview/plugin.min.js",
+      "plugins/searchreplace/plugin.min.js",
+      "plugins/table/plugin.min.js",
+      "plugins/visualblocks/plugin.min.js",
+      "plugins/wordcount/plugin.min.js",
       "plugins/help/js/i18n/keynav/*.js",
-      "plugins/emoticons/js/*.min.js",
       "skins/ui/oxide/*.min.css",
       "skins/ui/oxide-dark/*.min.css",
       "skins/content/default/content.min.css",
       "skins/content/dark/content.min.css"
-    ]
-  },
-  "plyr": {
-    "npm": "plyr",
-    "js": [
-      "dist/plyr.min.js"
-    ],
-    "css": [
-      "dist/plyr.css"
     ]
   },
   "dropzone": {
@@ -139,15 +172,6 @@
       "dist/star-rating.min.css"
     ]
   },
-  "coloris.js": {
-    "npm": "@melloware/coloris",
-    "js": [
-      "dist/umd/coloris.min.js"
-    ],
-    "css": [
-      "dist/coloris.min.css"
-    ]
-  },
   "typed.js": {
     "npm": "typed.js",
     "js": [
@@ -164,21 +188,6 @@
     "npm": "clipboard",
     "js": [
       "dist/clipboard.min.js"
-    ]
-  },
-  "fullcalendar": {
-    "npm": "fullcalendar",
-    "js": [
-      "index.global.min.js"
-    ]
-  },
-  "driver.js": {
-    "npm": "driver.js",
-    "js": [
-      "dist/driver.js.iife.js"
-    ],
-    "css": [
-      "dist/driver.css"
     ]
   }
 }

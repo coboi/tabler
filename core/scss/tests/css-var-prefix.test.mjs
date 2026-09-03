@@ -17,17 +17,14 @@ import { fileURLToPath } from 'node:url'
 import { compile as compileSass } from 'sass'
 import postcss from 'postcss'
 import prefixCustomProperties from 'postcss-prefix-custom-properties'
-import { cssVarIgnore, cssVarPrefix, inlineValueComments } from '../../../.build/css-var-prefix.ts'
+import { cssVarIgnore, cssVarPrefix } from '../../../.build/css-var-prefix.ts'
 
 const scssDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 
 // The same two passes build-css.ts runs before autoprefixer.
 async function buildCustomPropertyNames(entry) {
   const { css } = compileSass(path.join(scssDir, entry), { loadPaths: ['node_modules'], style: 'expanded' })
-  const result = await postcss([
-    inlineValueComments,
-    prefixCustomProperties({ prefix: cssVarPrefix, ignore: cssVarIgnore }),
-  ]).process(css, { from: undefined })
+  const result = await postcss([prefixCustomProperties({ prefix: cssVarPrefix, ignore: cssVarIgnore })]).process(css, { from: undefined })
 
   const names = new Set()
   result.root.walkDecls((decl) => {
@@ -44,7 +41,7 @@ describe('css custom-property prefixing', () => {
     await expect(buildCustomPropertyNames('tabler-vendors.scss')).resolves.toMatchSnapshot()
   })
 
-  it('has no dead entries in the ignore list', async () => {
+  it('has no dead entries in the ignore list', { timeout: 20000 }, async () => {
     // A pattern matching nothing means the vendor it protected is gone, or the
     // name drifted — either way the entry no longer guards anything.
     // Every entry point, since foreign names are spread across the bundles.

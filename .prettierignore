@@ -24,8 +24,5 @@ shared/components/navbar/Navbar.astro
 shared/ui/Chart.astro
 shared/ui/ChartSparkline.astro
 shared/ui/Datepicker.astro
-shared/ui/InlinePlayer.astro
-shared/ui/Map.astro
-shared/ui/MapVector.astro
 shared/ui/Range.astro
 shared/ui/Select.astro

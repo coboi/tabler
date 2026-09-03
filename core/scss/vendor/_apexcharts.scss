@@ -8,10 +8,10 @@
 // every chart at once, the same way --tblr-primary recolors the rest of the interface.
 :root {
   --chart-1: var(--primary);
-  --chart-2: var(--green);
-  --chart-3: var(--azure);
-  --chart-4: var(--purple);
-  --chart-5: var(--orange);
+  --chart-2: var(--success);
+  --chart-3: var(--info);
+  --chart-4: var(--warning);
+  --chart-5: var(--danger);
   --apx-accent: var(--chart-1);
   --apx-fore: var(--secondary);
   --apx-grid: var(--border-color);

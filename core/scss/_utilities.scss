@@ -125,8 +125,8 @@ $utilities: map.merge(
       property: transform,
       class: translate-middle,
       values: (
-        null: translate(calc(var(--dir) * -50%), -50%) #{'/*rtl:ignore*/'},
-        x: translateX(calc(var(--dir) * -50%)) #{'/*rtl:ignore*/'},
+        null: translate(-50%, -50%),
+        x: translateX(-50%),
         y: translateY(-50%),
       ),
     ),
@@ -568,7 +568,7 @@ $utilities: map.merge(
       property: background,
       class: bg-gradient,
       values: (
-        null: linear-gradient(var(--gradient-direction, to right), var(--gradient-stops, var(--gradient-from, transparent), var(--gradient-to, transparent))) no-repeat,
+        null: none,
       ),
     ),
     'bg-blur': (
@@ -674,7 +674,6 @@ $utilities: map.merge(
       values: (
         break: break-word,
       ),
-      rtl: false,
     ),
     'color': (
       property: color,

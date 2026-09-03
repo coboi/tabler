@@ -7,17 +7,17 @@
       {
         "text": "Send Q2 proposal to Skyline Retail",
         "due": "Today",
-        "color": "red"
+        "color": "danger"
       },
       {
         "text": "Follow up with CloudBase - 2nd touch",
         "due": "Today",
-        "color": "red"
+        "color": "danger"
       },
       {
         "text": "Schedule demo for NovaBuild Co",
         "due": "Tomorrow",
-        "color": "yellow"
+        "color": "warning"
       },
       {
         "text": "Update pipeline notes - Orion Logistics",
@@ -27,12 +27,12 @@
       {
         "text": "Prepare renewal deck for MetroPay",
         "due": "May 4",
-        "color": "yellow"
+        "color": "warning"
       },
       {
         "text": "Review churn signals - 3 at-risk accounts",
         "due": "May 5",
-        "color": "red"
+        "color": "danger"
       }
     ]
   },
@@ -255,28 +255,28 @@
         "count": 680,
         "amount": "$1.6M",
         "progress": 75,
-        "color": "azure"
+        "color": "info"
       },
       {
         "label": "Proposal",
         "count": 310,
         "amount": "$940K",
         "progress": 52,
-        "color": "purple"
+        "color": "primary"
       },
       {
         "label": "Negotiation",
         "count": 148,
         "amount": "$580K",
         "progress": 34,
-        "color": "yellow"
+        "color": "warning"
       },
       {
         "label": "Closed won",
         "count": 74,
         "amount": "$312K",
         "progress": 18,
-        "color": "green"
+        "color": "success"
       }
     ]
   }

@@ -1,14 +1,11 @@
 ---
 import Icon from './Icon.astro'
 import Button from './Button.astro'
-import Illustration from './Illustration.astro'
 
 interface Props {
   icon?: string
   height?: number | string
   class?: string
-  /** illustration file name, e.g. "computer-fix.svg" */
-  illustration?: string | undefined
   /** big text rendered instead of an icon/illustration */
   iconText?: string | undefined
   title?: string
@@ -18,18 +15,14 @@ interface Props {
   buttonIcon?: string
 }
 
-const { icon, height = 256, class: className, illustration, iconText, title, description, buttonText, buttonIcon } = Astro.props
+const { icon, height = 256, class: className, iconText, title, description, buttonText, buttonIcon } = Astro.props
 
 const classes = ['empty', className]
 ---
 
 <div class:list={classes}>
   {
-    illustration ? (
-      <div class="empty-img">
-        <Illustration image={illustration} height={height} />
-      </div>
-    ) : iconText ? (
+    iconText ? (
       <div class="empty-header" set:html={iconText} />
     ) : icon ? (
       <div class="empty-icon">

@@ -4,7 +4,7 @@ seoTitle: Form select group
 order: 5
 summary: Use selectgroup to make your form more intuitive by providing users with a set of options to choose from. You can add simple selectgroup with a label, use icons only or icons with labels. Alternatively, you can use pill selectgroup if they go well with your design.
 description: Offer sets of options with select groups - labeled, icon-only, or pill-shaped controls built on checkboxes and radios.
-css-plugins: [payments]
+
 related: [/ui/plugins/advanced-select, /ui/forms/image-check, /ui/forms/color-check]
 ---
 import Example from '@components/Example.astro';
@@ -203,45 +203,6 @@ Look at the example below to see how the pill selectgroup works:
     <label class="form-selectgroup-item">
       <input type="checkbox" name="name" value="JavaScript" class="form-selectgroup-input" />
       <span class="form-selectgroup-label">JavaScript</span>
-    </label>
-  </div>
-</div>
-</Example>
-
-## Advanced selectboxes
-
-Use more advanced selectboxes to display the range of available options. You can choose selectboxes with [radio buttons](/ui/forms/elements) if you want users to select only one option, or with checkboxes if they are allowed to choose multiple options.
-
-<Example column>
-<div class="mb-3">
-  <label class="form-label">Payment method</label>
-  <div class="form-selectgroup form-selectgroup-boxes d-flex flex-column">
-    <label class="form-selectgroup-item flex-fill">
-      <input type="radio" name="form-payment" value="visa" class="form-selectgroup-input" />
-      <div class="form-selectgroup-label d-flex align-items-center p-3">
-        <div class="me-3"><span class="form-selectgroup-check"></span></div>
-        <div>
-          <span class="payment payment-provider-visa payment-xs me-2"></span> ending in
-          <strong>7998</strong>
-        </div>
-      </div>
-    </label>
-    <label class="form-selectgroup-item flex-fill">
-      <input type="radio" name="form-payment" value="mastercard" class="form-selectgroup-input" checked />
-      <div class="form-selectgroup-label d-flex align-items-center p-3">
-        <div class="me-3"><span class="form-selectgroup-check"></span></div>
-        <div>
-          <span class="payment payment-provider-mastercard payment-xs me-2"></span> ending in
-          <strong>2807</strong>
-        </div>
-      </div>
-    </label>
-    <label class="form-selectgroup-item flex-fill">
-      <input type="radio" name="form-payment" value="paypal" class="form-selectgroup-input" />
-      <div class="form-selectgroup-label d-flex align-items-center p-3">
-        <div class="me-3"><span class="form-selectgroup-check"></span></div>
-        <div><span class="payment payment-provider-paypal payment-xs me-2"></span></div>
-      </div>
     </label>
   </div>
 </div>

@@ -21,7 +21,13 @@
   }
 
   @each $color, $value in $theme-colors {
-    --#{$color}: #{$value};
+    @if $color == 'primary' {
+      --#{$color}: light-dark(#{$value}, #f5f5f5);
+    } @else if $color == 'secondary' or $color == 'muted' {
+      --#{$color}: light-dark(#{$value}, rgb(255 255 255 / 56%));
+    } @else {
+      --#{$color}: #{$value};
+    }
   }
 
   @each $color, $value in $theme-colors-rgb {
@@ -168,6 +174,13 @@
 
     --link-color-rgb: #{to-rgb($link-color-dark)};
     --link-hover-color-rgb: #{to-rgb($link-hover-color-dark)};
+
+    --primary-rgb: 245, 245, 245;
+    --primary-fg: var(--dark);
+    --secondary-rgb: 143, 143, 143;
+    --secondary-fg: var(--dark);
+    --muted-rgb: 143, 143, 143;
+    --muted-fg: var(--dark);
     // scss-docs-end root-dark-mode-vars
   }
 }

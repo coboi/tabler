@@ -1,6 +1,5 @@
 ---
 import Icon from '@ui/Icon.astro'
-import Illustration from '@ui/Illustration.astro'
 import Carousel from '@ui/Carousel.astro'
 import CaptureScript from '../../CaptureScript.astro'
 
@@ -27,26 +26,8 @@ const typedId = 'typed'
         </div>
       </div>
       <div class="col-md-6">
-        <div class="hero-img-side">
-          <Carousel id="carousel-controls" interval={4000}>
-            <div class="carousel-item active">
-              <Illustration image="boy-with-key.svg" class="d-block mx-auto" height="350" />
-            </div>
-            <div class="carousel-item">
-              <Illustration image="boy-girl.svg" class="d-block mx-auto" height="350" />
-            </div>
-            <div class="carousel-item">
-              <Illustration image="computer-fix.svg" class="d-block mx-auto" height="350" />
-            </div>
-            <a slot="controls" class="carousel-control-prev text-secondary" href="#carousel-controls" role="button" data-bs-slide="prev">
-              <Icon name="chevron-left" class="icon-md" />
-              <span class="visually-hidden">Previous</span>
-            </a>
-            <a slot="controls" class="carousel-control-next text-secondary" href="#carousel-controls" role="button" data-bs-slide="next">
-              <Icon name="chevron-right" class="icon-md" />
-              <span class="visually-hidden">Next</span>
-            </a>
-          </Carousel>
+        <div class="hero-img-side d-flex align-items-center justify-content-center">
+          <Icon name="mail" size="xl" class="text-secondary" />
         </div>
       </div>
     </div>

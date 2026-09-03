@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeAll, beforeEach, afterEach, vi } from 'vitest'
-import { execute, executeAfterTransition, findShadowRoot, getElement, getNextActiveElement, getTransitionDurationFromElement, getUID, isDisabled, isElement, isRTL, isVisible, noop, parseSelector, reflow, toType, triggerTransitionEnd } from '../../../src/bootstrap/util/index'
+import { execute, executeAfterTransition, findShadowRoot, getElement, getNextActiveElement, getTransitionDurationFromElement, getUID, isDisabled, isElement, isVisible, noop, parseSelector, reflow, toType, triggerTransitionEnd } from '../../../src/bootstrap/util/index'
 import { clearFixture, getFixture } from '../../helpers/fixture'
 
 describe('util/index', () => {
@@ -343,21 +343,6 @@ describe('util/index', () => {
       const div = fixtureEl.querySelector('div')!
 
       expect(() => reflow(div)).not.toThrow()
-    })
-  })
-
-  describe('isRTL', () => {
-    afterEach(() => {
-      document.documentElement.dir = ''
-    })
-
-    it('should return false by default (LTR)', () => {
-      expect(isRTL()).toBe(false)
-    })
-
-    it('should return true when dir is rtl', () => {
-      document.documentElement.dir = 'rtl'
-      expect(isRTL()).toBe(true)
     })
   })
 

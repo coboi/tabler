@@ -8,7 +8,7 @@ import CardBody from '@ui/CardBody.astro'
 import CardTitle from '@ui/CardTitle.astro'
 import CardSubtitle from '@ui/CardSubtitle.astro'
 import Progress from '@ui/Progress.astro'
-import TablerList from '@shared/components/js/TablerList.astro'
+import DataTable from '@shared/components/js/DataTable.astro'
 import rollercoasters from '@data/rollercoasters.json'
 
 interface Rollercoaster {
@@ -17,8 +17,6 @@ interface Rollercoaster {
   type: string
   score: string
 }
-
-const id = 'default'
 
 const rows = (rollercoasters as Rollercoaster[]).map((rc, i) => {
   const index = i + 1
@@ -32,45 +30,41 @@ const rows = (rollercoasters as Rollercoaster[]).map((rc, i) => {
     dateLabel: formatLongDate(date),
   }
 })
-
-const valueNames = ['sort-name', 'sort-type', 'sort-city', 'sort-score', { attr: 'data-date', name: 'sort-date' }, { attr: 'data-progress', name: 'sort-progress' }, 'sort-quantity']
 ---
 
-<DefaultLayout title="Datatables" pageMenu="plugins.datatables" pageLibs={['lists']}>
+<DefaultLayout title="Datatables" pageMenu="plugins.datatables" pageLibs={['datatables', 'datatables-bs5', 'datatables-responsive', 'datatables-responsive-bs5', 'datatables-buttons', 'datatables-buttons-bs5', 'datatables-select', 'datatables-select-bs5']}>
   <Card>
     <CardHeader>
       <div>
         <CardTitle>Sortable table</CardTitle>
-        <CardSubtitle>Click a column header to sort the rows by that value.</CardSubtitle>
+        <CardSubtitle>Search, sort and paginate with DataTables.net — click a column header to sort.</CardSubtitle>
       </div>
     </CardHeader>
     <CardBody class="p-0">
-      <div id={`table-${id}`} class="table-responsive">
-        <table class="table">
+      <div class="table-responsive">
+        <table id="datatable" class="table">
           <thead>
             <tr>
-              <th><button class="table-sort" data-sort="sort-name">Name</button></th>
-              <th><button class="table-sort" data-sort="sort-city">City</button></th>
-              <th><button class="table-sort" data-sort="sort-type">Type</button></th>
-              <th><button class="table-sort" data-sort="sort-score">Score</button></th>
-              <th><button class="table-sort" data-sort="sort-date">Date</button></th>
-              <th><button class="table-sort" data-sort="sort-quantity">Quantity</button></th>
-              <th><button class="table-sort" data-sort="sort-progress">Progress</button></th>
+              <th>Name</th>
+              <th>City</th>
+              <th>Type</th>
+              <th>Score</th>
+              <th>Date</th>
+              <th>Quantity</th>
+              <th>Progress</th>
             </tr>
           </thead>
-          <tbody class="table-tbody">
+          <tbody>
             {
               rows.map(({ rc, progress, quantity, dateSeconds, dateLabel }) => (
                 <tr>
-                  <td class="sort-name">{rc.name}</td>
-                  <td class="sort-city">{rc.city}</td>
-                  <td class="sort-type">{rc.type}</td>
-                  <td class="sort-score">{rc.score}</td>
-                  <td class="sort-date" data-date={dateSeconds}>
-                    {dateLabel}
-                  </td>
-                  <td class="sort-quantity">{quantity}</td>
-                  <td class="sort-progress" data-progress={progress}>
+                  <td>{rc.name}</td>
+                  <td>{rc.city}</td>
+                  <td>{rc.type}</td>
+                  <td>{rc.score}</td>
+                  <td data-order={dateSeconds}>{dateLabel}</td>
+                  <td>{quantity}</td>
+                  <td data-order={progress}>
                     <div class="row align-items-center">
                       <div class="col-12 col-lg-auto">{progress}%</div>
                       <div class="col">
@@ -87,5 +81,55 @@ const valueNames = ['sort-name', 'sort-type', 'sort-city', 'sort-score', { attr:
     </CardBody>
   </Card>
 
-  <TablerList id={id} valueNames={valueNames} />
+  <Card>
+    <CardHeader>
+      <div>
+        <CardTitle>Selection, export and responsive</CardTitle>
+        <CardSubtitle>
+          <span data-dt-selected-count="datatable-advanced">0</span> selected — click a row or use the header checkbox. Columns collapse on small screens.
+        </CardSubtitle>
+      </div>
+    </CardHeader>
+    <CardBody class="p-0">
+      <div class="table-responsive">
+        <table id="datatable-advanced" class="table table-vcenter">
+          <thead>
+            <tr>
+              <th class="w-1">
+                <input type="checkbox" class="form-check-input m-0 align-middle" aria-label="Select all rows" />
+              </th>
+              <th>Name</th>
+              <th>City</th>
+              <th>Type</th>
+              <th>Score</th>
+              <th>Date</th>
+              <th>Quantity</th>
+              <th>Progress</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              rows.map(({ rc, progress, quantity, dateSeconds, dateLabel }, rowIndex) => (
+                <tr>
+                  <td>
+                    <input type="checkbox" class="form-check-input m-0 align-middle" aria-label={`Select row ${rowIndex + 1}`} />
+                  </td>
+                  <td>{rc.name}</td>
+                  <td>{rc.city}</td>
+                  <td>{rc.type}</td>
+                  <td>{rc.score}</td>
+                  <td data-order={dateSeconds}>{dateLabel}</td>
+                  <td>{quantity}</td>
+                  <td data-order={progress}>{progress}%</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+    </CardBody>
+  </Card>
+
+  <DataTable id="datatable" />
+  <DataTable id="datatable-advanced" select="multi" responsive buttons={['copy', 'csv', 'print', 'colvis']} />
 </DefaultLayout>

@@ -1,0 +1,153 @@
+---
+import CaptureScript from '../CaptureScript.astro'
+
+/**
+ * DataTables.net v3 (no jQuery) initializer.
+ * Needs page libs: datatables, datatables-bs5, and as used:
+ * datatables-responsive(-bs5), datatables-buttons(-bs5), datatables-select(-bs5).
+ * Declare them via `pageLibs` on the layout, e.g.
+ * `pageLibs={['datatables', 'datatables-bs5', 'datatables-responsive', 'datatables-responsive-bs5']}`.
+ *
+ * Selection hook: with `select`, the page renders Tabler checkboxes in the
+ * first column (`thead` for select-all, `tbody` per row) and the wrapper keeps
+ * them two-way synced with the Select API. Any
+ * `[data-dt-selected-count='<id>']` element shows the live count.
+ */
+
+/** Column descriptor for ajax mode — mirrors the DataTables `columns` option (data only, no render functions). */
+export interface DataTableColumn {
+  data?: string
+  title?: string
+  orderable?: boolean
+  searchable?: boolean
+  className?: string
+}
+
+export type DataTableSelect = 'single' | 'multi'
+export type DataTableButton = 'copy' | 'csv' | 'print' | 'colvis'
+/** Extended button config — plain data, so it survives `define:vars`. */
+export interface DataTableButtonConfig {
+  extend: 'colvis'
+  text?: string
+  /** Column selector, e.g. 'th:not(:first-child)' to skip the select-checkbox column. */
+  columns?: string
+}
+
+interface Props {
+  /** Table element id the DataTable is initialised on — required, unique per page. */
+  id: string
+  /** Rows per page. */
+  pageLength?: number
+  /** Initial order, e.g. [[1, 'asc']]. */
+  order?: [number, 'asc' | 'desc'][]
+  /** Checkbox selection on the first column — the page must render the checkbox column. */
+  select?: DataTableSelect | undefined
+  /** Collapse columns into child rows on small screens (needs the responsive extension). */
+  responsive?: boolean
+  /**
+   * Toolbar buttons (needs the buttons extension) — rendered in their own row, defaults kept.
+   * Plain `'colvis'` on a `select` table auto-excludes the checkbox column
+   * (`th:not(:first-child)` — plain CSS, the only selector flavor DT accepts),
+   * whose untitled header would otherwise render a blank entry.
+   */
+  buttons?: (DataTableButton | DataTableButtonConfig)[]
+  /** JSON endpoint for ajax mode — enables the processing indicator automatically. */
+  ajax?: string | undefined
+  /** Column descriptors for ajax mode. */
+  columns?: DataTableColumn[]
+  /** Server-side processing — needs `ajax` plus a backend speaking the DataTables protocol. */
+  serverSide?: boolean
+}
+
+const { id: tableId, pageLength = 10, order = [], select, responsive = false, buttons = [], ajax, columns, serverSide = false } = Astro.props
+const tableSelector = `#${tableId}`
+
+const options: Record<string, unknown> = { pageLength, order }
+
+if (select) {
+  options.select = { style: select === 'multi' ? 'multi' : 'single', selector: 'td:first-child' }
+  options.columnDefs = [{ orderable: false, searchable: false, targets: 0 }]
+}
+
+if (responsive) {
+  options.responsive = true
+}
+
+if (buttons.length > 0) {
+  const resolvedButtons = buttons.map((button) => (button === 'colvis' && select ? { extend: 'colvis', columns: 'th:not(:first-child)' } : button))
+  options.layout = { top2Start: { buttons: resolvedButtons } }
+}
+
+if (ajax) {
+  options.ajax = ajax
+  options.processing = true
+  if (columns) {
+    options.columns = columns
+  }
+  if (serverSide) {
+    options.serverSide = true
+  }
+}
+
+const selectAll = Boolean(select)
+---
+
+<CaptureScript>
+  <!-- BEGIN DATATABLE -->
+  <script is:inline define:vars={{ tableId, tableSelector, options, selectAll }}>
+    function initDataTable() {
+      window.tabler_datatable ??= {}
+      if (window.tabler_datatable[tableId] || DataTable.isDataTable(tableSelector)) return
+      const table = new DataTable(tableSelector, options)
+      window.tabler_datatable[tableId] = table
+
+      if (selectAll) {
+        const tableEl = document.querySelector(tableSelector)
+        const headerCheck = /** @type {HTMLInputElement | null} */ (document.querySelector(`${tableSelector} thead input[type='checkbox']`))
+        const countLabel = document.querySelector(`[data-dt-selected-count='${tableId}']`)
+        const rowBox = (row) => /** @type {HTMLInputElement | null} */ (row.querySelector("input[type='checkbox']"))
+        const sync = () => {
+          const selected = table.rows({ selected: true }).count()
+          const total = table.rows({ search: 'applied' }).count()
+          if (headerCheck) {
+            headerCheck.checked = total > 0 && selected === total
+            headerCheck.indeterminate = selected > 0 && selected < total
+          }
+          if (countLabel) {
+            countLabel.textContent = String(selected)
+          }
+          document.querySelectorAll(`${tableSelector} tbody tr`).forEach((row) => {
+            const box = rowBox(row)
+            if (box) {
+              box.checked = table.row(row).selected()
+            }
+          })
+        }
+        headerCheck?.addEventListener('click', () => {
+          if (headerCheck.checked) {
+            table.rows({ search: 'applied' }).select()
+          } else {
+            table.rows().deselect()
+          }
+        })
+        // Row checkbox → Select API (row clicks are handled by the `selector` option).
+        tableEl?.addEventListener('change', (event) => {
+          const target = /** @type {Element | null} */ (event.target)
+          const box = /** @type {HTMLInputElement | null} */ (target?.closest(`${tableSelector} tbody input[type='checkbox']`) ?? null)
+          if (!box) return
+          const row = table.row(box.closest('tr'))
+          if (box.checked) {
+            row.select()
+          } else {
+            row.deselect()
+          }
+        })
+        table.on('select deselect draw', sync)
+        sync()
+      }
+    }
+
+    document.readyState !== 'loading' ? initDataTable() : document.addEventListener('DOMContentLoaded', initDataTable, { once: true })
+  </script>
+  <!-- END DATATABLE -->
+</CaptureScript>

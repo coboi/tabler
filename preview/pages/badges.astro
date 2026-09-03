@@ -12,7 +12,7 @@ import site from '@data/site.json'
 import { ucFirst } from '@shared/lib/string-format'
 import DocsLink from '@ui/DocsLink.astro'
 
-const colors = ['default', ...Object.keys(site.colors), 'dark', 'light']
+const colors = ['default', ...Object.keys(site.themeColors)]
 const sizes = ['sm', 'md', 'lg']
 ---
 
@@ -71,7 +71,7 @@ const sizes = ['sm', 'md', 'lg']
 
             <button type="button" class="btn">
               Inbox
-              <span class="badge bg-red badge-notification text-red-fg">
+              <span class="badge bg-danger badge-notification text-danger-fg">
                 9+
                 <span class="visually-hidden">unread messages</span>
               </span>
@@ -79,22 +79,22 @@ const sizes = ['sm', 'md', 'lg']
 
             <button type="button" class="btn">
               Profile
-              <span class="badge badge-dot bg-red badge-notification"></span>
+              <span class="badge badge-dot bg-danger badge-notification"></span>
             </button>
 
             <button type="button" class="btn">
               Settings
-              <span class="badge badge-dot bg-red badge-notification badge-blink"></span>
+              <span class="badge badge-dot bg-danger badge-notification badge-blink"></span>
             </button>
 
             <button type="button" class="btn btn-icon">
               <Icon name="bell" />
-              <span class="badge badge-dot bg-red badge-notification badge-blink"></span>
+              <span class="badge badge-dot bg-danger badge-notification badge-blink"></span>
             </button>
 
             <button type="button" class="btn btn-icon btn-action">
               <Icon name="bell" />
-              <span class="badge badge-dot bg-red badge-notification"></span>
+              <span class="badge badge-dot bg-danger badge-notification"></span>
             </button>
           </ButtonList>
         </CardBody>

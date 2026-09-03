@@ -56,8 +56,7 @@ Dimmer
 
 @keyframes animated-dots {
   0% {
-    /* rtl:ignore */
-    transform: translateX(calc(var(--dir) * -100%));
+    transform: translateX(-100%);
   }
 }
 

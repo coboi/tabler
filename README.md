@@ -19,6 +19,10 @@ A premium and open source dashboard template with a responsive and high-quality 
 <a href="https://preview.tabler.io">Live demo</a> · <a href="https://docs.tabler.io">Documentation</a> · <a href="https://github.com/tabler/tabler/releases">Releases</a> · <a href="https://github.com/tabler/tabler/discussions">Discussions</a>
 </p>
 
+## 🍴 About this fork
+
+This is a custom fork of [Tabler](https://github.com/tabler/tabler), tailored to a specific use. It intentionally diverges from upstream — unused themes, components, and plugins are removed to keep the runtime small — so it is not a drop-in replacement, does not track upstream releases, and is not maintained or supported as a distribution. The installation and documentation sections below still apply where features overlap.
+
 ## 💛 Sponsors
 
 **If you want to support our project and help us grow it, you can [become a sponsor on GitHub](https://github.com/sponsors/codecalm) or just [donate on PayPal](https://paypal.me/codecalm) :)**

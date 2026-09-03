@@ -161,7 +161,7 @@ import DocsLink from '@ui/DocsLink.astro'
                 bar.style.width = `${width}%`
                 bar.setAttribute('aria-valuenow', `${width}`)
                 document.getElementById('progress-animated-value').innerText = `${width}%`
-                bar.classList.toggle('bg-green', width >= 100)
+                bar.classList.toggle('bg-success', width >= 100)
               }
 
               const interval = setInterval(() => {

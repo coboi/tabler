@@ -1,6 +1,6 @@
 ---
 // (noUiSlider), datepickers, progress bars, form buttons, and TomSelect variants.
-import flags from '@data/flags.json'
+import selects from '@data/selects.json'
 import FormGroup from '@ui/FormGroup.astro'
 import Range from '@ui/Range.astro'
 import Datepicker from '@ui/Datepicker.astro'
@@ -8,13 +8,15 @@ import Progress from '@ui/Progress.astro'
 import Button from '@ui/Button.astro'
 import DataSelect from '@shared/components/demo/DataSelect.astro'
 
-const datalistCountries = (flags as { name: string }[]).slice(0, 10)
+// flags.json was hard-deleted; the datalist demo uses the surviving
+// selects.json countries instead.
+const datalistCountries = Object.values((selects as Record<string, any>).countries.options as Record<string, { name: string }>).map((c) => c.name)
 ---
 
 <FormGroup label="Datalist example" for="fe6-datalist">
   <input class="form-control" id="fe6-datalist" list="datalistOptions" placeholder="Type to search..." />
   <datalist id="datalistOptions">
-    {datalistCountries.map((country) => <option value={country.name} />)}
+    {datalistCountries.map((name) => <option value={name} />)}
   </datalist>
 </FormGroup>
 

@@ -13,11 +13,10 @@ import CardBody from '@ui/CardBody.astro'
 import CardTitle from '@ui/CardTitle.astro'
 import CardSubtitle from '@ui/CardSubtitle.astro'
 import Layout from '@shared/components/cards/form/Layout.astro'
-import Payment from '@shared/components/cards/form/Payment.astro'
-import flags from '@data/flags.json'
+import countriesData from '@data/countries.json'
 import DocsLink from '@ui/DocsLink.astro'
 
-const countries = flags as { name: string }[]
+const countries = countriesData as { name: string }[]
 ---
 
 <DefaultLayout title="Form layout" pageHeader="Form Layout" pageMenu="form.layout" pageLibs={['litepicker']}>
@@ -233,7 +232,5 @@ const countries = flags as { name: string }[]
         </div>
       </div>
     </div>
-
-    <div class="col"><Payment payment="visa" ariaLabel="Visa" /></div>
   </div>
 </DefaultLayout>

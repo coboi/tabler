@@ -1,14 +1,9 @@
 ---
 import Icon from '@ui/Icon.astro'
-import type { FlagCountry } from '@shared/lib/tokens'
-import Flag from '@ui/Flag.astro'
 import CardTitle from '@ui/CardTitle.astro'
 import DropdownMenu from '@shared/components/demo/DropdownMenu.astro'
 import Pagination from '@ui/Pagination.astro'
 import invoices from '@data/invoices.json'
-import countries from '@data/countries.json'
-
-const countryNames = Object.fromEntries((countries as { code: string; name: string }[]).map((c) => [c.code, c.name]))
 ---
 
 <div class="card">
@@ -34,7 +29,7 @@ const countryNames = Object.fromEntries((countries as { code: string; name: stri
     </div>
   </div>
   <div class="table-responsive">
-    <table class="table table-selectable card-table table-vcenter text-nowrap datatable">
+    <table class="table table-selectable card-table table-vcenter text-nowrap">
       <thead>
         <tr>
           <th class="w-1"><input class="form-check-input m-0 align-middle" type="checkbox" aria-label="Select all invoices" /></th>
@@ -64,10 +59,7 @@ const countryNames = Object.fromEntries((countries as { code: string; name: stri
                   {invoice.name}
                 </a>
               </td>
-              <td>
-                <Flag flag={invoice.country as FlagCountry} size="xs" class="me-2" ariaLabel={countryNames[invoice.country] ?? invoice.country.toUpperCase()} />
-                {invoice.client}
-              </td>
+              <td>{invoice.client}</td>
               <td>{invoice['vat-no']}</td>
               <td>{invoice.date}</td>
               <td>

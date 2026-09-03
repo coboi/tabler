@@ -36,9 +36,9 @@
     "license": "MIT"
   },
   {
-    "name": "List.js",
-    "url": "https://listjs.com/",
-    "description": "Adds search, sort, and flexibility to tables, lists, and various HTML elements.",
+    "name": "DataTables",
+    "url": "https://datatables.net/",
+    "description": "Table plug-in for progressive enhancement with sorting, searching, pagination, responsive display, buttons and selection.",
     "license": "MIT"
   },
   {
@@ -46,12 +46,6 @@
     "url": "https://masonry.desandro.com/",
     "description": "JavaScript grid layout library that arranges elements optimally based on available vertical space.",
     "license": "MIT"
-  },
-  {
-    "name": "Mapbox GL JS",
-    "url": "https://docs.mapbox.com/mapbox-gl-js/",
-    "description": "JavaScript library for interactive, customizable vector maps on the web.",
-    "license": "BSD-3-Clause"
   },
   {
     "name": "Litepicker",
@@ -66,27 +60,9 @@
     "license": "Apache-2.0"
   },
   {
-    "name": "jsVectorMap",
-    "url": "https://jvm-docs.vercel.app/",
-    "description": "Lightweight JavaScript library for creating interactive maps and data visualizations.",
-    "license": "MIT"
-  },
-  {
-    "name": "Fslightbox",
-    "url": "https://fslightbox.com/",
-    "description": "Vanilla JavaScript plugin for displaying images and videos in a fullscreen lightbox.",
-    "license": "MIT"
-  },
-  {
     "name": "HugeRTE",
     "url": "https://hugerte.org/",
     "description": "MIT-licensed fork of TinyMCE, a web-based JavaScript HTML WYSIWYG editor control.",
-    "license": "MIT"
-  },
-  {
-    "name": "Plyr",
-    "url": "https://plyr.io/",
-    "description": "Simple, accessible, and customizable HTML5, YouTube, and Vimeo media player.",
     "license": "MIT"
   },
   {
@@ -99,12 +75,6 @@
     "name": "Star Rating.js",
     "url": "https://pryley.github.io/star-rating.js/",
     "description": "Lightweight JavaScript library for rendering star ratings.",
-    "license": "MIT"
-  },
-  {
-    "name": "Coloris",
-    "url": "https://github.com/melloware/coloris-npm",
-    "description": "Lightweight and elegant color picker written in vanilla JavaScript.",
     "license": "MIT"
   },
   {

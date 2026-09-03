@@ -93,8 +93,8 @@ Form control
 }
 
 .form-control-light {
-  background-color: var(--gray-100);
-  border-color: transparent;
+  background-color: var(--bg-surface-secondary);
+  border-color: var(--border-color);
 }
 
 .form-control-dark {
@@ -161,12 +161,12 @@ Form help
   height: var(--form-help-size);
   font-size: var(--form-help-font-size);
   font-weight: var(--font-weight-semibold);
-  color: $form-secondary-color;
+  color: var(--secondary);
   text-align: center;
   text-decoration: none;
   cursor: pointer;
   user-select: none;
-  background: var(--gray-100);
+  background: var(--bg-surface-secondary);
   @include border-radius(var(--border-radius-pill));
   @include transition(background-color $transition-time, color $transition-time);
 

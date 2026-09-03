@@ -5,21 +5,20 @@
  */
 interface ThemeConfig {
   'theme': string
-  'theme-base': string
   'theme-font': string
-  'theme-primary': string
-  'theme-radius': string
-  'sidebar': string
 }
 
 const themeConfig: ThemeConfig = {
-  'theme': 'auto',
-  'theme-base': 'gray',
+  'theme': 'light',
   'theme-font': 'sans-serif',
-  'theme-primary': 'blue',
-  'theme-radius': '1',
-  'sidebar': 'default',
 }
+
+// Clean up stale Scandinavian hard-deleted keys from older builds
+;['theme-base', 'theme-radius', 'theme-primary', 'sidebar'].forEach((k) => {
+  localStorage.removeItem('tabler-' + k)
+  document.documentElement.removeAttribute('data-bs-' + k)
+  document.documentElement.removeAttribute('data-' + k)
+})
 
 const params = new Proxy(new URLSearchParams(window.location.search), {
   get: (searchParams: URLSearchParams, prop: string): string | null => searchParams.get(prop),
@@ -51,8 +50,8 @@ for (const key in themeConfig) {
 }
 
 prefersDark.addEventListener('change', (event) => {
-  // No stored choice means the default, which is auto.
-  if ((localStorage.getItem('tabler-theme') ?? 'auto') === 'auto') {
+  // Only when the stored choice is explicitly 'auto' should the theme follow the system.
+  if ((localStorage.getItem('tabler-theme') ?? 'light') === 'auto') {
     if (event.matches) {
       document.documentElement.setAttribute('data-bs-theme', 'dark')
     } else {

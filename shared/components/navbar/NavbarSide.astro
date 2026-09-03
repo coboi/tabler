@@ -14,10 +14,8 @@ export type Breakpoint = 'sm' | 'md' | 'lg' | 'xl' | 'xxl'
 interface Props {
   class?: string
   breakpoint?: Breakpoint | undefined
-  condensed?: boolean
   personId?: number | undefined
   hideUsername?: boolean
-  dark?: boolean
   showThemeToggle?: boolean
   showNotifications?: boolean
   showApps?: boolean
@@ -28,10 +26,8 @@ interface Props {
 const {
   class: className,
   breakpoint = 'md',
-  condensed = false,
   personId = 1,
   hideUsername = false,
-  dark = false,
   // show-* flags default false — sidebar only shows the Sponsor button unless set.
   showThemeToggle = false,
   showNotifications = false,
@@ -43,15 +39,11 @@ const {
 
 <!-- BEGIN NAVBAR ACTIONS -->
 <div class:list={['navbar-nav flex-row', className]}>
-  {
-    !condensed && (
-      <div class={`nav-item d-none d-${breakpoint}-flex me-3`}>
-        <ButtonList>
-          <Button icon="heart" iconColor="pink" text="Sponsor" href={site.githubSponsorsUrl} external />
-        </ButtonList>
-      </div>
-    )
-  }
+  <div class={`nav-item d-none d-${breakpoint}-flex me-3`}>
+    <ButtonList>
+      <Button icon="heart" iconColor="pink" text="Sponsor" href={site.githubSponsorsUrl} external />
+    </ButtonList>
+  </div>
 
   {
     (showThemeToggle || showNotifications || showApps || showLanguageSelector) && (
@@ -64,6 +56,6 @@ const {
     )
   }
 
-  {showUser && <NavbarSideUser personId={personId} hideUsername={hideUsername} dark={dark} />}
+  {showUser && <NavbarSideUser personId={personId} hideUsername={hideUsername} />}
 </div>
 <!-- END NAVBAR ACTIONS -->

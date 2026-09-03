@@ -25,7 +25,7 @@ import { join } from 'node:path'
 import { compile as compileSass } from 'sass'
 import postcss from 'postcss'
 import prefixCustomProperties from 'postcss-prefix-custom-properties'
-import { cssVarIgnore, cssVarPrefix, inlineValueComments } from './css-var-prefix'
+import { cssVarIgnore, cssVarPrefix } from './css-var-prefix'
 
 const scssDir = 'core/scss'
 const baselineFile = '.build/css-vars-baseline.txt'
@@ -40,7 +40,7 @@ const referenced = new Map<string, Set<string>>()
 
 async function scan(entry: string) {
   const compiled = compileSass(join(scssDir, entry), { loadPaths: ['node_modules'], style: 'expanded' })
-  const { css } = await postcss([inlineValueComments, prefixCustomProperties({ prefix: cssVarPrefix, ignore: cssVarIgnore })]).process(compiled.css, { from: undefined, map: false })
+  const { css } = await postcss([prefixCustomProperties({ prefix: cssVarPrefix, ignore: cssVarIgnore })]).process(compiled.css, { from: undefined, map: false })
   const file = entry.replace('.scss', '.css')
 
   for (const [, name] of css.matchAll(definition)) defined.add(name)

@@ -3,14 +3,9 @@
 
 :root,
 :host {
-  /** Direction multiplier for physical transforms (1 = LTR, -1 = RTL) */
-  --dir: 1;
-
-  /** Fonts */
+  /** Fonts — Scandinavian fixed sans + mono */
   --font-monospace: #{$font-family-monospace};
   --font-sans-serif: #{$font-family-sans-serif};
-  --font-serif: #{$font-family-serif};
-  --font-comic: #{$font-family-comic};
 
   /** Gray colors */
   --gray-50: #{$gray-50};
@@ -37,19 +32,41 @@
   --light: #{$light};
 
   /** Brand colors */
-  --brand: #{$primary};
+  --brand: light-dark(#{$primary}, #f5f5f5);
 
   /** Theme colors */
   @each $name, $color in map.merge($theme-colors, $social-colors) {
-    --#{$name}: #{$color};
-    --#{$name}-rgb: #{to-rgb($color)};
-    --#{$name}-fg: #{if(sass(contrast-ratio($color) > $min-contrast-ratio): var(--light); else: var(--dark))};
-    --#{$name}-darken: #{theme-color-darker($color)};
-    --#{$name}-darken: color-mix(in oklab, var(--#{$name}), transparent 20%);
-    --#{$name}-lt: #{theme-color-lighter($color)};
-    --#{$name}-lt: color-mix(in oklab, var(--#{$name}) 10%, transparent);
-    --#{$name}-200: color-mix(in oklab, var(--#{$name}) 20%, transparent);
-    --#{$name}-lt-rgb: #{to-rgb(theme-color-lighter($color))};
+    @if $name == 'primary' {
+      --#{$name}: light-dark(#{$color}, #f5f5f5);
+      --#{$name}-rgb: #{to-rgb($color)};
+      --#{$name}-fg: light-dark(var(--light), var(--dark));
+      --#{$name}-darken: #{theme-color-darker($color)};
+      --#{$name}-darken: color-mix(in oklab, var(--#{$name}), transparent 20%);
+      --#{$name}-lt: #{theme-color-lighter($color)};
+      --#{$name}-lt: color-mix(in oklab, var(--#{$name}) 10%, transparent);
+      --#{$name}-200: color-mix(in oklab, var(--#{$name}) 20%, transparent);
+      --#{$name}-lt-rgb: #{to-rgb(theme-color-lighter($color))};
+    } @else if $name == 'secondary' or $name == 'muted' {
+      --#{$name}: light-dark(#{$color}, rgb(255 255 255 / 56%));
+      --#{$name}-rgb: #{to-rgb($color)};
+      --#{$name}-fg: light-dark(var(--light), var(--dark));
+      --#{$name}-darken: #{theme-color-darker($color)};
+      --#{$name}-darken: color-mix(in oklab, var(--#{$name}), transparent 20%);
+      --#{$name}-lt: #{theme-color-lighter($color)};
+      --#{$name}-lt: color-mix(in oklab, var(--#{$name}) 10%, transparent);
+      --#{$name}-200: color-mix(in oklab, var(--#{$name}) 20%, transparent);
+      --#{$name}-lt-rgb: #{to-rgb(theme-color-lighter($color))};
+    } @else {
+      --#{$name}: #{$color};
+      --#{$name}-rgb: #{to-rgb($color)};
+      --#{$name}-fg: #{if(sass(contrast-ratio($color) > $min-contrast-ratio): var(--light); else: var(--dark))};
+      --#{$name}-darken: #{theme-color-darker($color)};
+      --#{$name}-darken: color-mix(in oklab, var(--#{$name}), transparent 20%);
+      --#{$name}-lt: #{theme-color-lighter($color)};
+      --#{$name}-lt: color-mix(in oklab, var(--#{$name}) 10%, transparent);
+      --#{$name}-200: color-mix(in oklab, var(--#{$name}) 20%, transparent);
+      --#{$name}-lt-rgb: #{to-rgb(theme-color-lighter($color))};
+    }
   }
 
   /** Gray colors */
@@ -80,8 +97,8 @@
     --shadow#{if(sass($name): '-#{$name}'; else: '')}: #{$value};
   }
 
-  /** Border radiuses */
-  --border-radius-scale: 1;
+  /** Border radiuses — Scandinavian fixed 0.5 */
+  --border-radius-scale: 0.5;
   @each $name, $value in $border-radiuses {
     @if $name {
       --border-radius-#{$name}: calc(#{$value} * var(--border-radius-scale, 1));
@@ -100,10 +117,10 @@
   --backdrop-filter: blur(var(--backdrop-blur));
 }
 
-[dir='ltr'] {
-  --dir: 1;
-}
-
-[dir='rtl'] {
-  --dir: -1;
+// Dark-mode triplets for light-dark() colors above — RGBA(var(--*-rgb), …)
+// consumers would otherwise stay light-mode-only in dark mode.
+[data-bs-theme='dark'] {
+  --primary-rgb: #{to-rgb(#f5f5f5)};
+  --secondary-rgb: 255, 255, 255;
+  --muted-rgb: 255, 255, 255;
 }

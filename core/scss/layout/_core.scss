@@ -1,5 +1,3 @@
-@use 'sass:map';
-
 @use '../config' as *;
 
 html {
@@ -34,45 +32,3 @@ body {
 }
 
 @include scrollbar();
-
-//
-// Fluid container
-//
-.layout-fluid {
-  .container,
-  [class^='container-'],
-  [class*=' container-'] {
-    max-width: 100%;
-  }
-}
-
-//
-// Boxed container
-//
-.layout-boxed {
-  --theme-boxed-border-radius: 0;
-  --theme-boxed-width: #{map.get($container-max-widths, xxl)};
-
-  @include media-breakpoint-up(md) {
-    padding: 1rem;
-    background: $dark linear-gradient(to right, rgba(#fff, 0.1), transparent) fixed;
-    --theme-boxed-border-radius: #{$border-radius};
-  }
-
-  .page {
-    max-width: var(--theme-boxed-width);
-    margin: 0 auto;
-    color: var(--body-color);
-    @include border-radius(var(--theme-boxed-border-radius));
-
-    @include media-breakpoint-up(md) {
-      background: var(--body-bg);
-      border: var(--border-width) var(--border-style) var(--border-color);
-    }
-
-    > .navbar:first-child {
-      border-start-start-radius: var(--theme-boxed-border-radius);
-      border-start-end-radius: var(--theme-boxed-border-radius);
-    }
-  }
-}

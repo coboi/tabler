@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { iconSvg, iconSourceComment, illustrationSvg } from './svg'
+import { iconSvg, iconSourceComment } from './svg'
 
 describe('iconSvg', () => {
   it('returns the processed outline svg with a11y attributes and the given classes', () => {
@@ -31,23 +31,5 @@ describe('iconSvg', () => {
 describe('iconSourceComment', () => {
   it('links the tabler.io icon page', () => {
     expect(iconSourceComment('heart')).toBe('<!-- Download SVG icon from http://tabler.io/icons/icon/heart -->')
-  })
-})
-
-describe('illustrationSvg', () => {
-  const source = '<svg width="800" height="600" viewBox="0 0 800 600"><path /></svg>'
-
-  it('injects classes into the svg tag', () => {
-    expect(illustrationSvg(source, { classes: 'w-100 h-auto' })).toContain('<svg class="w-100 h-auto" width="800"')
-  })
-
-  it('swaps the fixed 800x600 size for a height', () => {
-    const svg = illustrationSvg(source, { height: 128 })
-    expect(svg).toContain('<svg height="128" viewBox')
-    expect(svg).not.toContain('width="800"')
-  })
-
-  it('returns the source untouched without options', () => {
-    expect(illustrationSvg(source)).toBe(source)
   })
 })

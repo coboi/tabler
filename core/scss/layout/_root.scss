@@ -13,45 +13,44 @@
   color-scheme: light;
   --spacer: var(--spacer-2);
 
-  --bg-surface: light-dark(var(--bg-surface-primary), var(--gray-800));
+  --bg-surface: light-dark(var(--bg-surface-primary), #0a0a0a);
   --bg-surface-primary: var(--white);
-  --bg-surface-secondary: light-dark(var(--gray-50), var(--gray-900));
-  --bg-surface-tertiary: light-dark(var(--gray-50), var(--gray-800));
-  --bg-surface-dark: var(--gray-900);
-  --bg-surface-inverted: light-dark(var(--gray-900), var(--gray-100));
-  --bg-forms: light-dark(var(--bg-surface), var(--gray-900));
-  --bg-forms-disabled: light-dark(var(--bg-surface-secondary), var(--gray-800));
+  --bg-surface-secondary: light-dark(rgb(0 0 0 / 5%), rgb(255 255 255 / 14%));
+  --bg-surface-tertiary: light-dark(rgb(0 0 0 / 7%), rgb(255 255 255 / 18%));
+  --bg-surface-dark: #0a0a0a;
+  --bg-surface-inverted: light-dark(#0a0a0a, #f5f5f5);
+  --bg-forms: light-dark(var(--bg-surface), #0f0f10);
+  --bg-forms-disabled: light-dark(rgb(0 0 0 / 3%), rgb(255 255 255 / 6%));
 
-  --text-inverted: light-dark(var(--gray-100), var(--gray-800));
+  --text-inverted: light-dark(#f5f5f5, #1a1a1e);
 
-  --body-color: light-dark(var(--gray-700), var(--gray-200));
-  --body-bg: light-dark(var(--bg-surface-secondary), var(--gray-900));
+  --body-color: light-dark(rgb(0 0 0 / 80%), rgb(255 255 255 / 84%));
+  --body-bg: light-dark(rgb(0 0 0 / 2%), #0a0a0a);
 
   // Dark mode tints the primary towards white, so links keep a 4.5:1 contrast
   // on the dark surfaces. Hover shades the link in light mode and tints it in dark.
   --link-color: light-dark(var(--primary), color-mix(in srgb, var(--primary), #fff 40%));
   --link-hover-color: light-dark(color-mix(in srgb, var(--link-color), #000 20%), color-mix(in srgb, var(--link-color), #fff 20%));
 
-  --secondary: light-dark(var(--gray-500), var(--gray-400));
-  --tertiary: var(--gray-400);
+  --secondary: light-dark(rgb(0 0 0 / 64%), rgb(255 255 255 / 56%));
+  --muted: light-dark(rgb(0 0 0 / 64%), rgb(255 255 255 / 56%));
+  --tertiary: light-dark(rgb(0 0 0 / 54%), rgb(255 255 255 / 48%));
 
-  --border-color: light-dark(#{$border-color}, var(--gray-700));
+  --border-color: light-dark(#{$border-color}, #{$border-color-dark});
   --border-color-translucent: light-dark(#{$border-color-translucent}, var(--dark-mode-border-color-translucent));
   --border-dark-color: light-dark(#{$border-dark-color}, var(--dark-mode-border-dark-color));
-  --border-dark-color-translucent: #{$border-dark-color-translucent};
-  --border-light-color: #{$border-light-color};
-  --border-light-color-translucent: #{$border-light-color-translucent};
+  --border-dark-color-translucent: light-dark(#{$border-dark-color-translucent}, rgb(255 255 255 / 14%));
+  --border-light-color: light-dark(#{$border-light-color}, rgb(255 255 255 / 10%));
+  --border-light-color-translucent: light-dark(#{$border-light-color-translucent}, rgb(255 255 255 / 8%));
   --border-active-color: light-dark(#{$border-active-color}, var(--dark-mode-border-active-color));
-  --border-active-color-translucent: #{$border-active-color-translucent};
+  --border-active-color-translucent: light-dark(#{$border-active-color-translucent}, rgb(255 255 255 / 20%));
 
   --icon-color: #{$icon-color};
 
   --active-bg: light-dark(#{$active-bg}, #{$lighten-dark});
 
-  --disabled-bg: #{$disabled-bg};
-  // $disabled-color already derives from var(--body-color) at compute time, so it
-  // adapts to dark mode on its own — no light-dark() or dark-block override needed.
-  --disabled-color: #{$disabled-color};
+  --disabled-bg: light-dark(#{$disabled-bg}, rgb(255 255 255 / 6%));
+  --disabled-color: light-dark(#{$disabled-color}, rgb(255 255 255 / 48%));
 
   --code-color: #{$code-color};
   --code-bg: #{$code-bg};
@@ -65,7 +64,6 @@
   --page-padding-y: #{$page-padding-y};
 
   --sidebar-width: #{$sidebar-width};
-  --sidebar-folded-width: #{$sidebar-folded-width};
 
   @include media-breakpoint-down($cards-grid-breakpoint) {
     --page-padding: #{$page-padding-sm};

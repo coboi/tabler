@@ -31,7 +31,7 @@ const data = tasksData as unknown as { columns: Column[] }
                   {task.color && <div class={`card-status-top bg-${task.color}`} />}
 
                   {task.starred && (
-                    <div class="ribbon ribbon-top ribbon-bookmark bg-yellow">
+                    <div class="ribbon ribbon-top ribbon-bookmark bg-warning">
                       <Icon name="star" />
                     </div>
                   )}

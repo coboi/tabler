@@ -37,64 +37,24 @@ const files: FileConfig[] = [
     configPropertyName: 'css',
   },
   {
-    file: 'css/tabler.rtl.min.css',
-    configPropertyName: 'css-rtl',
-  },
-  {
-    file: 'css/tabler-flags.min.css',
-    configPropertyName: 'css-flags',
-  },
-  {
-    file: 'css/tabler-flags.rtl.min.css',
-    configPropertyName: 'css-flags-rtl',
-  },
-  {
     file: 'css/tabler-marketing.min.css',
     configPropertyName: 'css-marketing',
-  },
-  {
-    file: 'css/tabler-marketing.rtl.min.css',
-    configPropertyName: 'css-marketing-rtl',
-  },
-  {
-    file: 'css/tabler-payments.min.css',
-    configPropertyName: 'css-payments',
-  },
-  {
-    file: 'css/tabler-payments.rtl.min.css',
-    configPropertyName: 'css-payments-rtl',
   },
   {
     file: 'css/tabler-props.min.css',
     configPropertyName: 'css-props',
   },
   {
-    file: 'css/tabler-props.rtl.min.css',
-    configPropertyName: 'css-props-rtl',
-  },
-  {
     file: 'css/tabler-themes.min.css',
     configPropertyName: 'css-themes',
-  },
-  {
-    file: 'css/tabler-themes.rtl.min.css',
-    configPropertyName: 'css-themes-rtl',
   },
   {
     file: 'css/tabler-socials.min.css',
     configPropertyName: 'css-socials',
   },
   {
-    file: 'css/tabler-socials.rtl.min.css',
-    configPropertyName: 'css-socials-rtl',
-  },
-  {
     file: 'css/tabler-vendors.min.css',
     configPropertyName: 'css-vendors',
-  },
-  {
-    file: 'css/tabler-vendors.rtl.min.css',
-    configPropertyName: 'css-vendors-rtl',
   },
   {
     file: 'js/tabler.min.js',
